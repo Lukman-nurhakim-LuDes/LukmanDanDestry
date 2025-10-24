@@ -20,17 +20,16 @@
             color: var(--text-dark); 
             overflow: hidden; 
             background-color: var(--bg-light);
-            /* Removed background image */
         }
         .font-cormorant { font-family: 'Cormorant Garamond', serif; }
         .gold-text { color: var(--gold); }
         .hidden { display: none; }
         
-        /* Flower Animation - Adjusted colors for new theme */
+        /* Flower Animation */
         .flower-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 9999; }
         .flower { 
             position: absolute; top: -10%; font-size: 20px; 
-            color: var(--gold); /* Adjusted to theme's gold */
+            color: var(--gold);
             animation: fall linear infinite; opacity: 0; 
         }
         @keyframes fall { 
@@ -67,11 +66,12 @@
             padding: 0.5rem 0.75rem; /* py-2 px-3 */
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            width: 100%;
         }
         .input-text:focus {
             outline: none;
             border-color: var(--gold); /* focus:border-amber-500 */
-            box-shadow: 0 0 0 3px rgba(var(--gold), 0.25); /* focus:ring-amber-500 */
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25); /* focus:ring-amber-500 */
         }
         .file-input {
             display: block;
@@ -105,7 +105,7 @@
         <p class="mt-4" style="color: var(--gold);">Memuat Undangan...</p>
     </div>
 
-    <div id="login-view" class="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+    <div id="login-view" class="hidden min-h-screen flex items-center justify-center bg-gray-100 p-4">
         <div class="w-full max-w-md bg-white rounded-lg shadow-xl p-8">
             <h2 class="text-2xl font-bold font-cormorant text-center text-gray-800 mb-6">Admin Login</h2>
             <form id="login-form">
@@ -126,10 +126,11 @@
     
     <div id="invitation-view" class="hidden">
         
-        <!-- NEW LANDING PAGE -->
+        <!-- HALAMAN SAMPUL (LANDING PAGE) -->
         <div id="landing-view" class="transition-opacity duration-1000">
             <section id="cover-section" class="relative min-h-screen bg-cover bg-center flex flex-col justify-center items-center text-white text-center p-4" style="background-image: url('https://placehold.co/1080x1920/1a202c/d4af37?text=Foto+Cover');">
-                <div class="absolute inset-0 bg-black bg-opacity-50"></div> <!-- Reverted overlay --><div class="relative z-10 flex flex-col h-full justify-center">
+                <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+                <div class="relative z-10 flex flex-col h-full justify-center">
                     <div class="flex-grow flex flex-col justify-center items-center">
                         <h3 class="text-xl tracking-widest text-white/90">THE WEDDING OF</h3>
                         <h1 id="bride-groom-cover" class="font-cormorant text-6xl md:text-8xl my-4">Pengantin & Pengantin</h1>
@@ -144,12 +145,13 @@
                         </button>
                     </div>
                 </div>
-                 <!-- REMOVED: Old edit-cover-btn was here -->
+                 <!-- Tombol edit cover dipindahkan ke tombol melayang di bawah -->
             </section>
         </div>
 
-        <!-- MAIN CONTENT OF THE INVITATION --><main id="main-content-view" class="hidden opacity-0 transition-opacity duration-1000">
-            <!-- MODIFICATION: Reverted to solid bg, removed card wrap --><section class="py-20 px-4 text-center animated-section bg-white">
+        <!-- KONTEN UTAMA UNDANGAN -->
+        <main id="main-content-view" class="hidden opacity-0 transition-opacity duration-1000">
+            <section class="py-20 px-4 text-center animated-section bg-white">
                  <div class="relative w-full max-w-4xl mx-auto">
                     <p class="text-lg mb-8 leading-relaxed">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih dan sayang." <br> (QS. Ar-Rum: 21)</p>
                     <h2 id="bride-groom-detail" class="font-cormorant text-4xl md:text-5xl gold-text mb-4">Nama Pengantin</h2>
@@ -157,9 +159,11 @@
                 </div>
             </section>
 
-             <!-- BRIDE & GROOM PROFILE SECTION --><section class="py-20 px-4 animated-section bg-light">
+             <!-- SEKSI PROFIL MEMPELAI -->
+             <section class="py-20 px-4 animated-section bg-light">
                 <div class="relative w-full max-w-4xl mx-auto text-center">
-                    <!-- Groom's Profile --><div class="mb-12">
+                    <!-- Profil Pria -->
+                    <div class="mb-12">
                          <div class="mx-auto w-48 h-64 rounded-t-[100px] rounded-b-lg overflow-hidden shadow-lg border-4 border-white">
                             <img id="groom-photo" src="https://placehold.co/400x600/1a202c/d4af37?text=Foto+Pria" class="w-full h-full object-cover">
                         </div>
@@ -176,6 +180,7 @@
                         <div class="flex-grow h-px bg-gray-300"></div>
                     </div>
     
+                    <!-- Profil Wanita -->
                     <div class="mb-12">
                          <div class="mx-auto w-48 h-64 rounded-t-[100px] rounded-b-lg overflow-hidden shadow-lg border-4 border-white">
                             <img id="bride-photo" src="https://placehold.co/400x600/1a202c/d4af37?text=Foto+Wanita" class="w-full h-full object-cover">
@@ -193,7 +198,8 @@
                 </div>
             </section>
             
-            <!-- MODIFICATION: Reverted to solid bg, removed card wrap --><section class="py-20 px-4 text-center animated-section bg-white">
+            <!-- SEKSI DETAIL ACARA -->
+            <section class="py-20 px-4 text-center animated-section bg-white">
                 <div class="relative w-full max-w-4xl mx-auto">
                     <h3 class="font-cormorant text-3xl gold-text mb-4">Menuju Hari Bahagia</h3>
                     <div id="countdown" class="text-3xl md:text-4xl font-semibold gold-text mb-8 flex justify-center space-x-4">
@@ -224,7 +230,8 @@
                 </div>
             </section>
     
-            <!-- MODIFICATION: Reverted to solid bg, removed card wrap --><section class="py-20 px-4 animated-section bg-light">
+            <!-- SEKSI KISAH CINTA -->
+            <section class="py-20 px-4 animated-section bg-light">
                 <div class="relative w-full max-w-4xl mx-auto">
                     <h2 class="font-cormorant text-4xl md:text-5xl gold-text text-center mb-12">Kisah Cinta Kami</h2>
                     <div id="love-story-content" class="text-center leading-relaxed">
@@ -236,10 +243,12 @@
                 </div>
             </section>
     
-            <!-- MODIFICATION: Reverted to solid bg, removed card wrap --><section class="py-20 px-4 animated-section bg-white">
+            <!-- SEKSI GALERI -->
+            <section class="py-20 px-4 animated-section bg-white">
                  <div class="relative w-full max-w-6xl mx-auto">
                     <h2 class="font-cormorant text-4xl md:text-5xl gold-text text-center mb-12">Galeri Foto</h2>
                     <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                         <!-- Foto placeholder -->
                          <img src="https://placehold.co/600x600/f7fafc/d4af37?text=Foto+1" class="w-full h-auto object-cover rounded-lg shadow-md cursor-pointer aspect-square">
                          <img src="https://placehold.co/600x600/f7fafc/d4af37?text=Foto+2" class="w-full h-auto object-cover rounded-lg shadow-md cursor-pointer aspect-square">
                          <img src="https://placehold.co/600x600/f7fafc/d4af37?text=Foto+3" class="w-full h-auto object-cover rounded-lg shadow-md cursor-pointer aspect-square">
@@ -253,14 +262,15 @@
                  </div>
             </section>
     
-            <!-- MODIFICATION: Reverted to solid bg, removed card wrap --><section class="py-20 px-4 animated-section bg-light">
+            <!-- SEKSI UCAPAN & RSVP -->
+            <section class="py-20 px-4 animated-section bg-light">
                 <div class="w-full max-w-4xl mx-auto">
                     <h2 class="font-cormorant text-4xl md:text-5xl gold-text text-center mb-12">Ucapan & Doa</h2>
                     <div class="bg-white p-8 rounded-lg shadow-lg">
                         <form id="wish-form">
                             <div class="mb-4">
                                 <label for="guest-name" class="block text-sm font-medium text-gray-700">Nama Anda</label>
-                                <input type="text" id="guest-name" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500" required>
+                                <input type="text" id="guest-name" class="mt-1 block w-full input-text" required>
                             </div>
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-700">Konfirmasi Kehadiran</label>
@@ -277,29 +287,42 @@
                             </div>
                             <div class="mb-4">
                                 <label for="guest-wish" class="block text-sm font-medium text-gray-700">Ucapan Anda</label>
-                                <textarea id="guest-wish" rows="4" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500" required></textarea>
+                                <textarea id="guest-wish" rows="4" class="mt-1 block w-full input-text" required></textarea>
                             </div>
                             <button type="submit" class="w-full text-white py-2 px-4 rounded-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition duration-300" style="background-color: var(--bg-dark);">Kirim Ucapan</button>
                         </form>
                     </div>
                     <div id="wishes-list" class="mt-12 max-h-96 overflow-y-auto space-y-4 pr-2">
+                        <!-- Daftar ucapan akan muncul di sini -->
                     </div>
                 </div>
             </section>
             
-            <!-- GIFT SECTION --><!-- MODIFICATION: Reverted to solid bg, removed card wrap --><section class="py-20 px-4 animated-section bg-white">
+            <!-- SEKSI AMPLOP DIGITAL -->
+            <section class="py-20 px-4 animated-section bg-white">
                 <div class="relative w-full max-w-4xl mx-auto">
                     <h2 class="font-cormorant text-4xl md:text-5xl gold-text text-center mb-4">Amplop Digital</h2>
                     <p class="text-center mb-12 max-w-2xl mx-auto">Tanpa mengurangi rasa hormat, bagi Anda yang ingin memberikan tanda kasih untuk mempelai, bisa melalui virtual account / e-wallet di bawah ini:</p>
                     <div id="gift-cards-container" class="grid md:grid-cols-2 gap-8">
-                        <!-- Gift cards will be dynamically inserted here --></div>
+                        <!-- Kartu bank/e-wallet akan muncul di sini -->
+                        <div class="bg-gray-50 p-6 rounded-lg shadow-lg text-center border border-gray-200">
+                            <h3 class="font-cormorant text-2xl gold-text">Nama Bank/E-Wallet</h3>
+                            <p class="mt-4 text-2xl font-semibold text-gray-800">1234567890</p>
+                            <p class="mt-1 text-sm text-gray-600">a.n. Nama Pemilik</p>
+                            <button class="copy-btn mt-4 bg-gray-800 text-white py-2 px-6 rounded-full hover:bg-gray-700 transition flex items-center justify-center mx-auto" data-account="1234567890">
+                                <i data-lucide="copy" class="w-4 h-4 mr-2"></i>
+                                <span>Salin Rekening</span>
+                            </button>
+                        </div>
+                    </div>
                     <button id="edit-gift-btn" class="admin-only absolute top-0 right-0 bg-gray-200 p-2 rounded-full hover:bg-gray-300 transition">
                         <i data-lucide="edit" class="w-5 h-5 text-gray-700"></i>
                     </button>
                 </div>
             </section>
 
-            <!-- MODIFICATION: Reverted to solid bg, removed card wrap --><section class="py-20 px-4 text-center animated-section bg-light">
+            <!-- SEKSI PENUTUP -->
+            <section class="py-20 px-4 text-center animated-section bg-light">
                 <div class="relative w-full max-w-4xl mx-auto">
                     <p id="closing-text" class="text-lg mb-8 leading-relaxed">Merupakan suatu kehormatan dan kebahagiaan bagi kami sekeluarga, apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kedua mempelai. Atas kehadiran dan doa restunya kami ucapkan terima kasih.</p>
                     <p class="font-cormorant text-3xl gold-text">Terima Kasih</p>
@@ -310,16 +333,17 @@
                 </div>
             </section>
     
+            <!-- TOMBOL MELAYANG UNTUK ADMIN & MUSIK -->
             <div class="fixed bottom-4 right-4 flex flex-col items-end space-y-2 z-50">
-                 <button id="logout-btn" class="admin-only bg-red-500 text-white p-3 rounded-full shadow-lg hover:bg-red-600 transition">
+                 <button id="logout-btn" class="admin-only hidden bg-red-500 text-white p-3 rounded-full shadow-lg hover:bg-red-600 transition">
                     <i data-lucide="log-out" class="w-6 h-6"></i>
                 </button>
-                <!-- ADDED: New floating button to edit cover photo -->
-                <button id="edit-cover-btn-floating" class="admin-only bg-purple-500 text-white p-3 rounded-full shadow-lg hover:bg-purple-600 transition" title="Ganti Foto Cover">
+                <!-- TOMBOL EDIT FOTO COVER (HALAMAN PERTAMA) -->
+                <button id="edit-cover-btn-floating" class="admin-only hidden bg-purple-500 text-white p-3 rounded-full shadow-lg hover:bg-purple-600 transition" title="Ganti Foto Cover">
                     <i data-lucide="image" class="w-6 h-6"></i>
                 </button>
                 <div class="flex items-center space-x-2">
-                    <button id="edit-music-btn" class="admin-only bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition">
+                    <button id="edit-music-btn" class="admin-only hidden bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition">
                         <i data-lucide="music" class="w-6 h-6"></i>
                     </button>
                     <button id="music-control-btn" class="text-white p-3 rounded-full shadow-lg hover:opacity-90 transition" style="background-color: var(--bg-dark);">
@@ -331,11 +355,15 @@
         </main>
     </div>
 
-    <!-- Modals --><div id="profile-edit-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 z-[60] flex items-center justify-center p-4">
+    <!-- MODAL-MODAL EDIT -->
+
+    <!-- Modal Edit Profil -->
+    <div id="profile-edit-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 z-[60] flex items-center justify-center p-4">
         <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl p-6 max-h-[90vh] overflow-y-auto">
             <h3 class="text-xl font-bold mb-4">Edit Profil Mempelai</h3>
             <form id="profile-edit-form" class="space-y-6">
-                <!-- Groom Section --><div>
+                <!-- Bagian Pria -->
+                <div>
                     <h4 class="text-lg font-semibold border-b pb-2 mb-3 gold-text">Mempelai Pria</h4>
                     <div class="space-y-3">
                         <div>
@@ -356,7 +384,8 @@
                         </div>
                     </div>
                 </div>
-                <!-- Bride Section --><div>
+                <!-- Bagian Wanita -->
+                <div>
                     <h4 class="text-lg font-semibold border-b pb-2 mb-3 gold-text">Mempelai Wanita</h4>
                     <div class="space-y-3">
                         <div>
@@ -385,8 +414,10 @@
             </form>
         </div>
     </div>
+    
+    <!-- Modal Edit Teks Umum -->
     <div id="text-edit-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 z-[60] flex items-center justify-center p-4">
-        <div class="bg-white rounded-lg shadow-xl w-full max-w-lg p-6">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto">
             <h3 id="modal-title" class="text-xl font-bold mb-4">Edit Teks</h3>
             <form id="text-edit-form">
                 <div id="form-fields" class="space-y-4"></div>
@@ -397,11 +428,13 @@
             </form>
         </div>
     </div>
+    
+    <!-- Modal Upload File (Cover & Musik) -->
     <div id="file-upload-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 z-[60] flex items-center justify-center p-4">
         <div class="bg-white rounded-lg shadow-xl w-full max-w-lg p-6">
             <h3 id="file-modal-title" class="text-xl font-bold mb-4">Upload File</h3>
             <form id="file-upload-form">
-                <input type="file" id="file-input" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100" required>
+                <input type="file" id="file-input" class="file-input" required>
                 <p class="text-xs text-gray-500 mt-1" id="file-type-info"></p>
                 <div id="progress-bar-container" class="w-full bg-gray-200 rounded-full h-2.5 mt-4 hidden">
                     <div id="progress-bar" class="bg-amber-600 h-2.5 rounded-full" style="width: 0%"></div>
@@ -413,13 +446,15 @@
             </form>
         </div>
     </div>
+    
+    <!-- Modal Edit Galeri -->
     <div id="gallery-edit-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 z-[60] flex items-center justify-center p-4">
         <div class="bg-white rounded-lg shadow-xl w-full max-w-3xl p-6">
             <h3 class="text-xl font-bold mb-4">Edit Galeri Foto</h3>
             <div id="current-gallery-images" class="grid grid-cols-4 gap-2 mb-4 max-h-64 overflow-y-auto"></div>
             <form id="gallery-upload-form">
                 <label class="block mb-2 text-sm font-medium text-gray-900" for="gallery-file-input">Upload foto baru (bisa pilih beberapa):</label>
-                <input type="file" id="gallery-file-input" multiple accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100">
+                <input type="file" id="gallery-file-input" multiple accept="image/*" class="file-input">
                 <div id="gallery-progress-bar-container" class="w-full bg-gray-200 rounded-full h-2.5 mt-4 hidden">
                     <div id="gallery-progress-bar" class="bg-amber-600 h-2.5 rounded-full" style="width: 0%"></div>
                 </div>
@@ -429,6 +464,8 @@
             </form>
         </div>
     </div>
+    
+    <!-- Lightbox Tampilan Foto -->
     <div id="lightbox" class="hidden fixed inset-0 z-[70] flex items-center justify-center p-4">
         <span id="close-lightbox" class="absolute top-4 right-6 text-white text-4xl cursor-pointer">&times;</span>
         <img id="lightbox-img" src="" alt="Lightbox Image" class="rounded-lg">
@@ -436,11 +473,11 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script type="module">
-    // --- PASTE YOUR SUPABASE CONFIG HERE ---
-    const SUPABASE_URL = 'https://mibbvpkxtjjeglgkgqup.supabase.co'; // Example: 'https://xyz.supabase.co'
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1pYmJ2cGt4dGpqZWdsZ2tncXVwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEwNDYyMjYsImV4cCI6MjA3NjYyMjIyNn0.W6DH1oUlF8uDlbAHnlim3rSqds8Q75FQTEJ0GiRB4VI'; // Example: 'ey...'
+    // --- KONFIGURASI SUPABASE ---
+    const SUPABASE_URL = 'https://mibbvpkxtjjeglgkgqup.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1pYmJ2cGt4dGpqZWdsZ2tncXVwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEwNDYyMjYsImV4cCI6MjA3NjYyMjIyNn0.W6DH1oUlF8uDlbAHnlim3rSqds8Q75FQTEJ0GiRB4VI';
 
-    // --- APP INITIALIZATION ---
+    // --- INISIALISASI APLIKASI ---
     let supabaseClient;
     try {
         supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -451,7 +488,7 @@
 
     const BUCKET_NAME = 'assets';
 
-    // --- DOM ELEMENTS ---
+    // --- ELEMEN DOM ---
     const loadingIndicator = document.getElementById('loading-indicator');
     const loginView = document.getElementById('login-view');
     const invitationView = document.getElementById('invitation-view');
@@ -460,47 +497,50 @@
     const openInvitationBtn = document.getElementById('open-invitation-btn');
     const guestNameDisplay = document.getElementById('guest-name-display');
     
-    // --- GLOBAL STATE ---
+    // --- STATE GLOBAL ---
     let currentUser = null;
     let invitationData = {};
     let countdownInterval;
-    let isDataLoaded = false; // Flag to prevent multiple data loads
+    let isDataLoaded = false;
 
-    // --- AUTHENTICATION ---
+    // --- AUTENTIKASI ---
     supabaseClient.auth.onAuthStateChange(async (event, session) => {
         const isAdminPath = window.location.hash === '#admin';
         currentUser = session?.user;
 
-        if (currentUser) { // USER IS LOGGED IN
+        if (currentUser) { // JIKA ADMIN LOGIN
             loginView.classList.add('hidden');
             invitationView.classList.remove('hidden');
             document.querySelectorAll('.admin-only').forEach(el => el.classList.remove('hidden'));
 
-            // User is admin, bypass landing page
+            // Langsung lewati halaman sampul
             landingView.classList.add('hidden');
             mainContentView.classList.remove('hidden');
             mainContentView.classList.add('opacity-100');
             document.body.style.overflow = 'auto';
+            
+            // PERBAIKAN: Langsung sembunyikan loading agar tidak macet
+            loadingIndicator.classList.add('hidden');
 
             if (!isDataLoaded) {
                 await fetchInitialData();
                 isDataLoaded = true;
-                // Start observing sections
                 document.querySelectorAll('.animated-section').forEach(section => {
                     observer.observe(section);
                 });
             }
             
-        } else { // USER IS NOT LOGGED IN
+        } else { // JIKA TAMU BIASA
             document.querySelectorAll('.admin-only').forEach(el => el.classList.add('hidden'));
             
-            if (isAdminPath) {
+            if (isAdminPath) { // Tampilkan login jika di #admin
                 loginView.classList.remove('hidden');
                 invitationView.classList.add('hidden');
                 loadingIndicator.classList.add('hidden');
-            } else { // Not admin path, show public invitation
+            } else { // Tampilkan halaman sampul publik
                 loginView.classList.add('hidden');
                 invitationView.classList.remove('hidden');
+                landingView.classList.remove('hidden');
                 
                 if (!isDataLoaded) {
                     await fetchInitialData();
@@ -524,7 +564,6 @@
             loginError.textContent = 'Email atau password salah.';
             console.error("Login failed:", error);
         } else {
-            // Auth state will change, onAuthStateChange will handle the view
             window.location.hash = ''; 
         }
     });
@@ -532,10 +571,10 @@
     document.getElementById('logout-btn').addEventListener('click', async () => {
         await supabaseClient.auth.signOut();
         window.location.hash = '#admin';
-        window.location.reload(); // Reload to show landing page
+        window.location.reload(); 
     });
     
-    // --- NEW LANDING PAGE LOGIC ---
+    // --- LOGIKA HALAMAN SAMPUL ---
     function handleGuestName() {
         try {
             const urlParams = new URLSearchParams(window.location.search);
@@ -554,22 +593,18 @@
         setTimeout(() => {
             landingView.classList.add('hidden');
             mainContentView.classList.remove('hidden');
-            // Use timeout to allow the element to be rendered before adding transition class
             setTimeout(() => mainContentView.classList.add('opacity-100'), 50);
             
             document.body.style.overflow = 'auto';
             playMusic();
-            // Start observing sections after they become visible
-            if (!isDataLoaded) { // Only observe if data is loaded
-                document.querySelectorAll('.animated-section').forEach(section => {
-                    observer.observe(section);
-                });
-            }
-        }, 1000); // Wait for fade-out to complete
+            document.querySelectorAll('.animated-section').forEach(section => {
+                observer.observe(section);
+            });
+        }, 1000); 
     });
 
 
-    // --- DATA FETCHING & RENDERING ---
+    // --- MEMUAT & MENAMPILKAN DATA ---
     async function fetchInitialData() {
         const { data: invData, error: invError } = await supabaseClient.from('invitations').select('*').eq('id', 1).single();
         if (invError) {
@@ -580,7 +615,10 @@
             renderInvitation(invitationData);
         }
         await fetchWishes();
-        loadingIndicator.classList.add('hidden');
+        // Sembunyikan loading setelah data tamu (non-admin) dimuat
+        if(!currentUser) {
+            loadingIndicator.classList.add('hidden');
+        }
     }
 
     async function fetchWishes() {
@@ -612,8 +650,8 @@
         }
     }
 
-    // Realtime Subscriptions
-    const invitationChannel = supabaseClient.channel('public:invitations')
+    // --- REALTIME (Langsung update jika ada perubahan) ---
+    supabaseClient.channel('public:invitations')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'invitations', filter: 'id=eq.1' }, payload => {
         console.log('Invitation data changed!', payload.new);
         invitationData = payload.new;
@@ -621,7 +659,7 @@
       })
       .subscribe();
 
-    const wishesChannel = supabaseClient.channel('public:wishes')
+    supabaseClient.channel('public:wishes')
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'wishes' }, payload => {
         console.log('New wish received!', payload.new);
         fetchWishes();
@@ -629,18 +667,15 @@
       .subscribe();
 
     function renderInvitation(data) {
-        // Set background for cover section only if it's explicitly set by admin, otherwise use the default from CSS
-        if (data.coverPhoto) {
-            document.getElementById('cover-section').style.backgroundImage = `url('${data.coverPhoto}')`;
-        } else {
-            document.getElementById('cover-section').style.backgroundImage = `url('https://placehold.co/1080x1920/1a202c/d4af37?text=Foto+Cover')`; // Default to the provided image
-        }
+        // Halaman Sampul
+        document.getElementById('cover-section').style.backgroundImage = `url('${data.coverPhoto || 'https://placehold.co/1080x1920/1a202c/d4af37?text=Foto+Cover'}')`;
+        document.getElementById('bride-groom-cover').textContent = data.brideGroomNames || 'Pengantin & Pengantin';
         
-        document.getElementById('bride-groom-cover').textContent = data.brideGroomNames || 'Pengantin';
-        document.getElementById('bride-groom-detail').textContent = data.brideGroomNames || 'Pengantin';
+        // Detail Umum
+        document.getElementById('bride-groom-detail').textContent = data.brideGroomNames || 'Pengantin & Pengantin';
         document.getElementById('parents-detail').innerHTML = `${data.groomParents || 'Putra dari Bapak ... & Ibu ...'}<br>${data.brideParents || 'dan Putri dari Bapak ... & Ibu ...'}`;
         
-        // Render Profile Section
+        // Profil Mempelai
         document.getElementById('groom-name').textContent = data.groomName || 'Nama Mempelai Pria';
         document.getElementById('groom-info').textContent = data.groomInfo || 'Info tambahan mempelai pria';
         document.getElementById('groom-photo').src = data.groomPhoto || 'https://placehold.co/400x600/1a202c/d4af37?text=Foto+Pria';
@@ -653,7 +688,7 @@
         const brideSocial = document.getElementById('bride-social-link');
         if(data.brideSocial) { brideSocial.href = data.brideSocial; brideSocial.classList.remove('hidden'); } else { brideSocial.classList.add('hidden'); }
 
-
+        // Detail Acara
         const ceremonyDateStr = data.ceremonyDate || 'Minggu, 04 Januari 2026';
         const ceremonyTimeStr = data.ceremonyTime || '09:00 - 10:00 WIB';
 
@@ -663,10 +698,13 @@
         document.getElementById('reception-date').textContent = data.receptionDate || 'Minggu, 04 Januari 2026';
         document.getElementById('reception-time').textContent = data.receptionTime || '11:00 - 14:00 WIB';
         document.getElementById('reception-location').textContent = data.receptionLocation || 'Lokasi Resepsi';
-        document.getElementById('wedding-date-cover').textContent = ceremonyDateStr;
+        document.getElementById('wedding-date-cover').textContent = ceremonyDateStr; // Update tanggal di sampul
         document.getElementById('map-link').href = data.mapLink || '#';
+        
+        // Kisah Cinta
         document.getElementById('love-story-content').innerHTML = data.loveStory ? data.loveStory.replace(/\n/g, '<br>') : 'Cerita cinta kami dimulai di sini...';
         
+        // Galeri
         const galleryGrid = document.getElementById('gallery-grid');
         galleryGrid.innerHTML = '';
         if (data.galleryPhotos && data.galleryPhotos.length > 0) {
@@ -687,15 +725,18 @@
                 <img src="https://placehold.co/600x600/f7fafc/d4af37?text=Foto+6" class="w-full h-auto object-cover rounded-lg shadow-md cursor-pointer aspect-square">`;
         }
         
+        // Penutup
         document.getElementById('closing-text').textContent = data.closingText || 'Merupakan suatu kehormatan...';
         document.getElementById('bride-groom-closing').innerHTML = `Kami yang Berbahagia,<br>${data.brideGroomNames || 'Pengantin'}`;
+        
+        // Musik
         const audio = document.getElementById('background-music');
         if (data.musicUrl && audio.src !== data.musicUrl) {
             audio.src = data.musicUrl;
         }
         startCountdown(ceremonyDateStr, ceremonyTimeStr);
         
-        // Render Gift Section
+        // Amplop Digital
         const giftContainer = document.getElementById('gift-cards-container');
         giftContainer.innerHTML = '';
         for (let i = 1; i <= 2; i++) {
@@ -714,49 +755,72 @@
                 giftContainer.appendChild(card);
             }
         }
+        // Jika tidak ada data amplop, tampilkan placeholder
+        if(giftContainer.innerHTML === '') {
+            giftContainer.innerHTML = `
+                <div class="bg-gray-50 p-6 rounded-lg shadow-lg text-center border border-gray-200">
+                    <h3 class="font-cormorant text-2xl gold-text">Nama Bank/E-Wallet</h3>
+                    <p class="mt-4 text-2xl font-semibold text-gray-800">1234567890</p>
+                    <p class="mt-1 text-sm text-gray-600">a.n. Nama Pemilik</p>
+                    <button class="copy-btn mt-4 bg-gray-800 text-white py-2 px-6 rounded-full hover:bg-gray-700 transition flex items-center justify-center mx-auto" data-account="1234567890">
+                        <i data-lucide="copy" class="w-4 h-4 mr-2"></i>
+                        <span>Salin Rekening</span>
+                    </button>
+                </div>`;
+        }
         lucide.createIcons();
     }
 
-    // --- COUNTDOWN ---
+    // --- HITUNG MUNDUR ---
     function startCountdown(dateStr, timeStr) {
         clearInterval(countdownInterval);
+        // Format: "Minggu, 04 Januari 2026" dan "09:00 - 10:00 WIB"
         const targetDateTimeStr = `${dateStr} ${timeStr.split(' ')[0]}`;
         const monthMap = { "Januari": 0, "Februari": 1, "Maret": 2, "April": 3, "Mei": 4, "Juni": 5, "Juli": 6, "Agustus": 7, "September": 8, "Oktober": 9, "November": 10, "Desember": 11 };
-        const parts = targetDateTimeStr.replace(',', '').split(' ');
-        const day = parseInt(parts[1]);
-        const month = monthMap[parts[2]];
-        const year = parseInt(parts[3]);
-        const timeParts = parts[4].split(':');
-        const hour = parseInt(timeParts[0]);
-        const minute = parseInt(timeParts[1]);
+        
+        try {
+            const parts = targetDateTimeStr.replace(',', '').split(' '); // [Minggu, 04, Januari, 2026, 09:00]
+            const day = parseInt(parts[1]);
+            const month = monthMap[parts[2]];
+            const year = parseInt(parts[3]);
+            const timeParts = parts[4].split(':');
+            const hour = parseInt(timeParts[0]);
+            const minute = parseInt(timeParts[1]);
 
-        if (isNaN(day) || isNaN(month) || isNaN(year)) {
-            console.error("Invalid date format for countdown:", dateStr);
-            return;
-        }
-
-        const targetDate = new Date(year, month, day, hour, minute).getTime();
-        countdownInterval = setInterval(() => {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
-            if (distance < 0) {
-                clearInterval(countdownInterval);
-                document.getElementById('countdown').innerHTML = '<p class="text-2xl font-cormorant">Acara Telah Berlangsung</p>';
+            if (isNaN(day) || month === undefined || isNaN(year) || isNaN(hour) || isNaN(minute)) {
+                console.error("Invalid date/time format for countdown:", dateStr, timeStr);
+                document.getElementById('countdown').innerHTML = '<p class="text-2xl font-cormorant">Menghitung...</p>';
                 return;
             }
-            document.getElementById('days').textContent = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-            document.getElementById('hours').textContent = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
-        }, 1000);
+
+            const targetDate = new Date(year, month, day, hour, minute).getTime();
+            
+            countdownInterval = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById('countdown').innerHTML = '<p class="text-2xl font-cormorant">Acara Telah Berlangsung</p>';
+                    return;
+                }
+                document.getElementById('days').textContent = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                document.getElementById('hours').textContent = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+            }, 1000);
+        } catch (e) {
+            console.error("Error parsing countdown date:", e);
+            document.getElementById('countdown').innerHTML = '<p class="text-2xl font-cormorant">Menghitung...</p>';
+        }
     }
     
-    // --- MODAL CONTROLS ---
+    // --- KONTROL MODAL ---
     const profileEditModal = document.getElementById('profile-edit-modal');
     const textEditModal = document.getElementById('text-edit-modal');
     const fileUploadModal = document.getElementById('file-upload-modal');
     const galleryEditModal = document.getElementById('gallery-edit-modal');
     let currentUploadType = null;
+    
     function openTextEditModal(section, title, fields) {
         document.getElementById('modal-title').textContent = title;
         const formFields = document.getElementById('form-fields');
@@ -765,6 +829,7 @@
             const fieldWrapper = document.createElement('div');
             const label = document.createElement('label');
             label.className = 'block text-sm font-medium text-gray-700';
+            label.htmlFor = `field-${field.id}`;
             label.textContent = field.label;
             let input;
             if (field.type === 'textarea') {
@@ -775,7 +840,7 @@
                 input.type = 'text';
             }
             input.id = `field-${field.id}`;
-            input.className = 'mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-amber-500 focus:border-amber-500';
+            input.className = 'mt-1 block w-full input-text';
             input.value = invitationData[field.id] || '';
             fieldWrapper.appendChild(label);
             fieldWrapper.appendChild(input);
@@ -804,6 +869,7 @@
     });
     document.getElementById('cancel-text-edit').addEventListener('click', () => textEditModal.classList.add('hidden'));
 
+    // Event Listener untuk tombol-tombol edit
     document.getElementById('edit-details-btn').addEventListener('click', () => {
         openTextEditModal('details', 'Edit Detail Acara', [
             { id: 'brideGroomNames', label: 'Nama Kedua Mempelai (e.g., John & Jane)' }, { id: 'groomParents', label: 'Orang Tua Mempelai Pria' }, { id: 'brideParents', label: 'Orang Tua Mempelai Wanita' }, { id: 'ceremonyDate', label: 'Tanggal Akad (e.g., Minggu, 04 Januari 2026)' }, { id: 'ceremonyTime', label: 'Waktu Akad (e.g., 09:00 - 10:00 WIB)' }, { id: 'ceremonyLocation', label: 'Lokasi Akad' }, { id: 'receptionDate', label: 'Tanggal Resepsi' }, { id: 'receptionTime', label: 'Waktu Resepsi' }, { id: 'receptionLocation', label: 'Lokasi Resepsi' }, { id: 'mapLink', label: 'Link Google Maps' },
@@ -818,15 +884,16 @@
         ]);
     });
 
-    // --- PROFILE EDIT MODAL ---
+    // --- MODAL EDIT PROFIL ---
     document.getElementById('edit-profile-btn').addEventListener('click', () => {
-        // Populate modal with existing data
         document.getElementById('groomName').value = invitationData.groomName || '';
         document.getElementById('groomInfo').value = invitationData.groomInfo || '';
         document.getElementById('groomSocial').value = invitationData.groomSocial || '';
         document.getElementById('brideName').value = invitationData.brideName || '';
         document.getElementById('brideInfo').value = invitationData.brideInfo || '';
         document.getElementById('brideSocial').value = invitationData.brideSocial || '';
+        document.getElementById('groomPhoto').value = '';
+        document.getElementById('bridePhoto').value = '';
         profileEditModal.classList.remove('hidden');
     });
 
@@ -846,7 +913,6 @@
             brideSocial: document.getElementById('brideSocial').value,
         };
 
-        // Helper function to upload a file and get its URL
         const uploadProfilePhoto = async (file, profileType) => {
             if (!file) return null;
             const filePath = `profile/${profileType}_${Date.now()}.${file.name.split('.').pop()}`;
@@ -876,12 +942,14 @@
         }
     });
 
-    // --- FILE UPLOAD LOGIC ---
+    // --- LOGIKA UPLOAD FILE (COVER & MUSIK) ---
     function openFileUploadModal(type, title, acceptedFiles) {
         currentUploadType = type;
         document.getElementById('file-modal-title').textContent = title;
         document.getElementById('file-type-info').textContent = `File yang diterima: ${acceptedFiles}`;
-        document.getElementById('file-input').accept = acceptedFiles;
+        const fileInput = document.getElementById('file-input');
+        fileInput.accept = acceptedFiles;
+        fileInput.value = ''; // Reset input
         document.getElementById('progress-bar-container').classList.add('hidden');
         document.getElementById('progress-bar').style.width = '0%';
         fileUploadModal.classList.remove('hidden');
@@ -912,7 +980,7 @@
         }
 
         const { data: urlData } = supabaseClient.storage.from(BUCKET_NAME).getPublicUrl(filePath);
-        const publicURL = urlData.publicUrl;
+        const publicURL = `${urlData.publicUrl}?t=${new Date().getTime()}`; // Tambahkan cache-buster
 
         const { error: dbError } = await supabaseClient.from('invitations').update({ [dataField]: publicURL }).eq('id', 1);
 
@@ -921,16 +989,15 @@
              alert('Upload berhasil, tapi gagal menyimpan link ke database.');
         } else {
             fileUploadModal.classList.add('hidden');
-            alert("File berhasil diupload!");
+            alert("File berhasil diupload! Refresh halaman untuk melihat perubahan.");
         }
     });
 
-    // ADDED: Listener for new floating cover edit button
+    // Event listener untuk tombol edit cover melayang
     document.getElementById('edit-cover-btn-floating').addEventListener('click', () => openFileUploadModal('cover', 'Ganti Foto Cover', 'image/*'));
-
     document.getElementById('edit-music-btn').addEventListener('click', () => openFileUploadModal('music', 'Ganti Musik Latar', '.mp3,.wav'));
 
-    // --- GALLERY EDIT LOGIC ---
+    // --- LOGIKA EDIT GALERI ---
     document.getElementById('edit-gallery-btn').addEventListener('click', () => {
         renderCurrentGalleryImages();
         galleryEditModal.classList.remove('hidden');
@@ -941,7 +1008,7 @@
         const container = document.getElementById('current-gallery-images');
         container.innerHTML = '';
         const photos = invitationData.galleryPhotos || [];
-        photos.forEach((url, index) => {
+        photos.forEach((url) => {
             const imgContainer = document.createElement('div');
             imgContainer.className = 'relative';
             imgContainer.innerHTML = `<img src="${url}" class="w-full h-24 object-cover rounded"><button data-url="${url}" class="delete-gallery-img absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 w-6 h-6 flex items-center justify-center"><i data-lucide="trash-2" class="w-4 h-4"></i></button>`;
@@ -960,7 +1027,7 @@
 
     async function deleteGalleryImage(url) {
         let photos = [...(invitationData.galleryPhotos || [])];
-        const pathToDelete = url.split(`${BUCKET_NAME}/`)[1];
+        const pathToDelete = url.split(`${BUCKET_NAME}/`)[1].split('?')[0]; // Hapus cache-buster jika ada
         
         const { error: storageError } = await supabaseClient.storage.from(BUCKET_NAME).remove([pathToDelete]);
         if (storageError) console.error("Error deleting from storage:", storageError);
@@ -980,19 +1047,25 @@
         if (!files.length) return;
         
         let existingPhotos = [...(invitationData.galleryPhotos || [])];
+        const uploadPromises = [];
 
         for (const file of Array.from(files)) {
             const filePath = `gallery/${Date.now()}_${file.name}`;
-            const { error: uploadError } = await supabaseClient.storage.from(BUCKET_NAME).upload(filePath, file);
-
-            if (uploadError) {
-                console.error(`Upload failed for ${file.name}:`, uploadError);
-                continue; 
-            }
-            
-            const { data: urlData } = supabaseClient.storage.from(BUCKET_NAME).getPublicUrl(filePath);
-            existingPhotos.push(urlData.publicUrl);
+            uploadPromises.push(
+                supabaseClient.storage.from(BUCKET_NAME).upload(filePath, file)
+                    .then(({ data, error }) => {
+                        if (error) {
+                            console.error(`Upload failed for ${file.name}:`, error);
+                            return null;
+                        }
+                        const { data: urlData } = supabaseClient.storage.from(BUCKET_NAME).getPublicUrl(data.path);
+                        return `${urlData.publicUrl}?t=${new Date().getTime()}`;
+                    })
+            );
         }
+
+        const newUrls = (await Promise.all(uploadPromises)).filter(url => url !== null);
+        existingPhotos.push(...newUrls);
 
         const { error: dbError } = await supabaseClient.from('invitations').update({ galleryPhotos: existingPhotos }).eq('id', 1);
 
@@ -1004,7 +1077,7 @@
         document.getElementById('gallery-file-input').value = '';
     });
 
-    // --- WISH FORM ---
+    // --- FORM UCAPAN ---
     document.getElementById('wish-form').addEventListener('submit', async (e) => {
         e.preventDefault();
         const nameInput = document.getElementById('guest-name');
@@ -1025,7 +1098,7 @@
         }
     });
 
-    // --- MUSIC & LIGHTBOX ---
+    // --- MUSIK & LIGHTBOX ---
     const musicBtn = document.getElementById('music-control-btn'), musicIcon = document.getElementById('music-icon'), audio = document.getElementById('background-music');
     
     function toggleMusic() { audio.paused ? playMusic() : pauseMusic(); }
@@ -1039,8 +1112,13 @@
     closeLightboxBtn.addEventListener('click', closeLightbox);
     lightbox.addEventListener('click', (e) => { if (e.target.id === 'lightbox') closeLightbox(); });
     
-    // --- UTILITIES ---
-    function escapeHTML(str) { const p = document.createElement('p'); p.appendChild(document.createTextNode(str)); return p.innerHTML; }
+    // --- UTILITAS ---
+    function escapeHTML(str) { 
+        if (!str) return '';
+        const p = document.createElement('p'); 
+        p.appendChild(document.createTextNode(str)); 
+        return p.innerHTML; 
+    }
     function createFlowers() { 
         const container = document.getElementById('flower-container');
         if (!container) return;
@@ -1058,13 +1136,12 @@
         } 
     }
     
-    // Event listener for copy buttons (must be delegated)
+    // Event listener untuk tombol "Salin"
     document.addEventListener('click', (e) => {
         const copyBtn = e.target.closest('.copy-btn');
         if (copyBtn) {
             const accountNumber = copyBtn.dataset.account;
             try {
-                // Use a temporary textarea to copy to clipboard
                 const tempTextarea = document.createElement('textarea');
                 tempTextarea.value = accountNumber;
                 document.body.appendChild(tempTextarea);
@@ -1084,7 +1161,7 @@
         }
     });
 
-    // --- ANIMATION OBSERVER ---
+    // --- OBSERVER UNTUK ANIMASI SCROLL ---
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -1093,12 +1170,11 @@
         });
     }, { threshold: 0.1 });
 
-    // --- INITIALIZE ---
+    // --- MULAI APLIKASI ---
     if (supabaseClient) {
-        // These are static, they can run immediately
         handleGuestName();
         createFlowers();
-        // The main logic (fetchInitialData) is now inside onAuthStateChange
+        // Fungsi utama (fetchInitialData) sekarang dipanggil di dalam onAuthStateChange
     }
 </script>
 
