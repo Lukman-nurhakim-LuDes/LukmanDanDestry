@@ -15,33 +15,33 @@
             --text-dark: #2d3748;
             --text-light: #f7fafc;
         }
-        body { 
-            font-family: 'Montserrat', sans-serif; 
-            color: var(--text-dark); 
-            overflow: hidden; 
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+            overflow: hidden; /* Sembunyikan scrollbar awal */
             background-color: var(--bg-light);
         }
         .font-cormorant { font-family: 'Cormorant Garamond', serif; }
         .gold-text { color: var(--gold); }
-        .hidden { display: none; }
-        
+        .hidden { display: none !important; } /* Make sure hidden overrides everything */
+
         /* Flower Animation */
         .flower-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 9999; }
-        .flower { 
-            position: absolute; top: -10%; font-size: 20px; 
+        .flower {
+            position: absolute; top: -10%; font-size: 20px;
             color: var(--gold);
-            animation: fall linear infinite; opacity: 0; 
+            animation: fall linear infinite; opacity: 0;
         }
-        @keyframes fall { 
-            0% { transform: translateY(0) rotate(0); opacity: 0.7; } 
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0); opacity: 0.7; }
             90% { opacity: 0.7; }
-            100% { transform: translateY(105vh) rotate(720deg); opacity: 0; } 
+            100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
         }
 
         /* Lightbox */
         #lightbox { background-color: rgba(0, 0, 0, 0.9); transition: opacity 0.3s ease-in-out; }
         #lightbox img { max-width: 90vw; max-height: 80vh; }
-        
+
         /* Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-light); }
@@ -100,11 +100,13 @@
 <body class="text-gray-800">
 
     <div id="flower-container" class="flower-container"></div>
+    <!-- Pastikan loading tidak punya class hidden awal -->
     <div id="loading-indicator" class="fixed inset-0 bg-white z-[100] flex flex-col justify-center items-center">
         <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2" style="border-color: var(--gold);"></div>
         <p class="mt-4" style="color: var(--gold);">Memuat Undangan...</p>
     </div>
 
+    <!-- Pastikan view lain punya class hidden awal -->
     <div id="login-view" class="hidden min-h-screen flex items-center justify-center bg-gray-100 p-4">
         <div class="w-full max-w-md bg-white rounded-lg shadow-xl p-8">
             <h2 class="text-2xl font-bold font-cormorant text-center text-gray-800 mb-6">Admin Login</h2>
@@ -127,7 +129,7 @@
     <div id="invitation-view" class="hidden">
         
         <!-- HALAMAN SAMPUL (LANDING PAGE) -->
-        <div id="landing-view" class="transition-opacity duration-1000">
+        <div id="landing-view" class="transition-opacity duration-1000 hidden"> <!-- Pastikan hidden awal -->
             <section id="cover-section" class="relative min-h-screen bg-cover bg-center flex flex-col justify-center items-center text-white text-center p-4" style="background-image: url('https://placehold.co/1080x1920/1a202c/d4af37?text=Foto+Cover');">
                 <div class="absolute inset-0 bg-black bg-opacity-50"></div>
                 <div class="relative z-10 flex flex-col h-full justify-center">
@@ -145,7 +147,6 @@
                         </button>
                     </div>
                 </div>
-                 <!-- Tombol edit cover dipindahkan ke tombol melayang di bawah -->
             </section>
         </div>
 
@@ -169,7 +170,7 @@
                         </div>
                         <h3 id="groom-name" class="font-cormorant text-4xl mt-4 gold-text">Nama Mempelai Pria</h3>
                         <p id="groom-info" class="mt-2 text-gray-600">Info tambahan mempelai pria</p>
-                        <a id="groom-social-link" href="#" target="_blank" class="inline-block mt-3 opacity-70 hover:opacity-100 transition">
+                        <a id="groom-social-link" href="#" target="_blank" class="inline-block mt-3 opacity-70 hover:opacity-100 transition hidden">
                             <i data-lucide="instagram" class="w-6 h-6 text-gray-800"></i>
                         </a>
                     </div>
@@ -187,12 +188,12 @@
                         </div>
                         <h3 id="bride-name" class="font-cormorant text-4xl mt-4 gold-text">Nama Mempelai Wanita</h3>
                         <p id="bride-info" class="mt-2 text-gray-600">Info tambahan mempelai wanita</p>
-                         <a id="bride-social-link" href="#" target="_blank" class="inline-block mt-3 opacity-70 hover:opacity-100 transition">
+                         <a id="bride-social-link" href="#" target="_blank" class="inline-block mt-3 opacity-70 hover:opacity-100 transition hidden">
                             <i data-lucide="instagram" class="w-6 h-6 text-gray-800"></i>
                         </a>
                     </div>
                     
-                    <button id="edit-profile-btn" class="admin-only absolute top-0 right-0 bg-gray-200 p-2 rounded-full hover:bg-gray-300 transition">
+                    <button id="edit-profile-btn" class="admin-only hidden absolute top-0 right-0 bg-gray-200 p-2 rounded-full hover:bg-gray-300 transition">
                         <i data-lucide="edit" class="w-5 h-5 text-gray-700"></i>
                     </button>
                 </div>
@@ -224,7 +225,7 @@
                         </div>
                     </div>
                     <a id="map-link" href="#" target="_blank" class="mt-8 inline-block text-white py-2 px-6 rounded-full hover:opacity-90 transition duration-300" style="background-color: var(--bg-dark);">Lihat Peta Lokasi</a>
-                    <button id="edit-details-btn" class="admin-only absolute top-0 right-0 bg-gray-200 p-2 rounded-full hover:bg-gray-300 transition">
+                    <button id="edit-details-btn" class="admin-only hidden absolute top-0 right-0 bg-gray-200 p-2 rounded-full hover:bg-gray-300 transition">
                         <i data-lucide="edit" class="w-5 h-5 text-gray-700"></i>
                     </button>
                 </div>
@@ -237,7 +238,7 @@
                     <div id="love-story-content" class="text-center leading-relaxed">
                         <p>Cerita cinta kami dimulai di sini...</p>
                     </div>
-                     <button id="edit-story-btn" class="admin-only absolute top-0 right-0 bg-gray-200 p-2 rounded-full hover:bg-gray-300 transition">
+                     <button id="edit-story-btn" class="admin-only hidden absolute top-0 right-0 bg-gray-200 p-2 rounded-full hover:bg-gray-300 transition">
                         <i data-lucide="edit" class="w-5 h-5 text-gray-700"></i>
                     </button>
                 </div>
@@ -256,7 +257,7 @@
                          <img src="https://placehold.co/600x600/f7fafc/d4af37?text=Foto+5" class="w-full h-auto object-cover rounded-lg shadow-md cursor-pointer aspect-square">
                          <img src="https://placehold.co/600x600/f7fafc/d4af37?text=Foto+6" class="w-full h-auto object-cover rounded-lg shadow-md cursor-pointer aspect-square">
                     </div>
-                    <button id="edit-gallery-btn" class="admin-only absolute top-0 right-0 bg-gray-200 p-2 rounded-full hover:bg-gray-300 transition">
+                    <button id="edit-gallery-btn" class="admin-only hidden absolute top-0 right-0 bg-gray-200 p-2 rounded-full hover:bg-gray-300 transition">
                         <i data-lucide="edit" class="w-5 h-5 text-gray-700"></i>
                     </button>
                  </div>
@@ -315,7 +316,7 @@
                             </button>
                         </div>
                     </div>
-                    <button id="edit-gift-btn" class="admin-only absolute top-0 right-0 bg-gray-200 p-2 rounded-full hover:bg-gray-300 transition">
+                    <button id="edit-gift-btn" class="admin-only hidden absolute top-0 right-0 bg-gray-200 p-2 rounded-full hover:bg-gray-300 transition">
                         <i data-lucide="edit" class="w-5 h-5 text-gray-700"></i>
                     </button>
                 </div>
@@ -327,7 +328,7 @@
                     <p id="closing-text" class="text-lg mb-8 leading-relaxed">Merupakan suatu kehormatan dan kebahagiaan bagi kami sekeluarga, apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kedua mempelai. Atas kehadiran dan doa restunya kami ucapkan terima kasih.</p>
                     <p class="font-cormorant text-3xl gold-text">Terima Kasih</p>
                     <h2 id="bride-groom-closing" class="font-cormorant text-4xl md:text-5xl mt-4">Kami yang Berbahagia,<br>Pengantin</h2>
-                    <button id="edit-closing-btn" class="admin-only absolute top-0 right-0 bg-gray-200 p-2 rounded-full hover:bg-gray-300 transition">
+                    <button id="edit-closing-btn" class="admin-only hidden absolute top-0 right-0 bg-gray-200 p-2 rounded-full hover:bg-gray-300 transition">
                         <i data-lucide="edit" class="w-5 h-5 text-gray-700"></i>
                     </button>
                 </div>
@@ -481,9 +482,10 @@
     let supabaseClient;
     try {
         supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        console.log('Supabase client initialized successfully.'); // Log sukses inisialisasi
     } catch (e) {
         console.error("Supabase initialization failed. Please check your config.", e);
-        document.getElementById('loading-indicator').innerHTML = '<p class="text-red-500">Konfigurasi Supabase tidak valid. Silakan periksa konsol.</p>';
+        if(loadingIndicator) loadingIndicator.innerHTML = '<p class="text-red-500">Konfigurasi Supabase tidak valid. Silakan periksa konsol.</p>';
     }
 
     const BUCKET_NAME = 'assets';
@@ -505,50 +507,66 @@
 
     // --- AUTENTIKASI ---
     supabaseClient.auth.onAuthStateChange(async (event, session) => {
+        console.log("Auth state change detected:", event); // Log event auth
         const isAdminPath = window.location.hash === '#admin';
         currentUser = session?.user;
 
+        // Sembunyikan semua view dulu
+        if(loginView) loginView.classList.add('hidden');
+        if(invitationView) invitationView.classList.add('hidden');
+        if(landingView) landingView.classList.add('hidden');
+        if(mainContentView) mainContentView.classList.add('hidden');
+
+
         if (currentUser) { // JIKA ADMIN LOGIN
-            loginView.classList.add('hidden');
-            invitationView.classList.remove('hidden');
+            console.log("User is logged in (Admin).");
+            invitationView.classList.remove('hidden'); // Tampilkan container utama
             document.querySelectorAll('.admin-only').forEach(el => el.classList.remove('hidden'));
 
             // Langsung lewati halaman sampul
-            landingView.classList.add('hidden');
             mainContentView.classList.remove('hidden');
             mainContentView.classList.add('opacity-100');
             document.body.style.overflow = 'auto';
             
-            // PERBAIKAN: Langsung sembunyikan loading agar tidak macet
-            loadingIndicator.classList.add('hidden');
+            loadingIndicator.classList.add('hidden'); // Sembunyikan loading
+            console.log("Showing main content for admin.");
 
             if (!isDataLoaded) {
-                await fetchInitialData();
+                console.log("Fetching initial data for admin...");
+                await fetchInitialData(); // Tetap load data
                 isDataLoaded = true;
                 document.querySelectorAll('.animated-section').forEach(section => {
                     observer.observe(section);
                 });
+            } else {
+                console.log("Data already loaded for admin.");
             }
             
-        } else { // JIKA TAMU BIASA
+        } else { // JIKA TAMU BIASA atau belum login
+            console.log("User is not logged in or is a guest.");
             document.querySelectorAll('.admin-only').forEach(el => el.classList.add('hidden'));
             
             if (isAdminPath) { // Tampilkan login jika di #admin
+                console.log("Admin path detected, showing login view.");
                 loginView.classList.remove('hidden');
-                invitationView.classList.add('hidden');
-                loadingIndicator.classList.add('hidden');
+                loadingIndicator.classList.add('hidden'); // Sembunyikan loading
             } else { // Tampilkan halaman sampul publik
-                loginView.classList.add('hidden');
-                invitationView.classList.remove('hidden');
-                landingView.classList.remove('hidden');
+                console.log("Public path detected, showing landing view.");
+                invitationView.classList.remove('hidden'); // Tampilkan container utama
+                landingView.classList.remove('hidden'); // Tampilkan sampul
+                loadingIndicator.classList.remove('hidden'); // Tampilkan loading sampai data siap
                 
                 if (!isDataLoaded) {
-                    await fetchInitialData();
+                     console.log("Fetching initial data for guest...");
+                    await fetchInitialData(); // Load data baru sembunyikan loading di dalam fetch
                     isDataLoaded = true;
+                } else {
+                     console.log("Data already loaded for guest.");
+                     loadingIndicator.classList.add('hidden'); // Sembunyikan jika data sudah ada
                 }
             }
         }
-        lucide.createIcons();
+        lucide.createIcons(); // Panggil ini setelah view ditentukan
     });
 
     document.getElementById('login-form').addEventListener('submit', async (e) => {
@@ -557,6 +575,7 @@
         const password = document.getElementById('password').value;
         const loginError = document.getElementById('login-error');
         loginError.textContent = '';
+        console.log("Attempting login...");
 
         const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
 
@@ -564,11 +583,13 @@
             loginError.textContent = 'Email atau password salah.';
             console.error("Login failed:", error);
         } else {
-            window.location.hash = ''; 
+            console.log("Login successful.");
+            window.location.hash = ''; // Biarkan onAuthStateChange menangani view
         }
     });
 
     document.getElementById('logout-btn').addEventListener('click', async () => {
+        console.log("Logging out...");
         await supabaseClient.auth.signOut();
         window.location.hash = '#admin';
         window.location.reload(); 
@@ -581,6 +602,9 @@
             const guestName = urlParams.get('to');
             if (guestName) {
                 guestNameDisplay.textContent = guestName;
+                 console.log("Guest name set:", guestName);
+            } else {
+                 console.log("No guest name in URL.");
             }
         } catch (e) {
             console.error("Error parsing URL params for guest name:", e);
@@ -588,6 +612,7 @@
     }
 
     openInvitationBtn.addEventListener('click', () => {
+         console.log("Open Invitation button clicked.");
         landingView.classList.add('opacity-0');
         
         setTimeout(() => {
@@ -595,28 +620,40 @@
             mainContentView.classList.remove('hidden');
             setTimeout(() => mainContentView.classList.add('opacity-100'), 50);
             
-            document.body.style.overflow = 'auto';
+            document.body.style.overflow = 'auto'; // Aktifkan scroll
             playMusic();
             document.querySelectorAll('.animated-section').forEach(section => {
                 observer.observe(section);
             });
+             console.log("Main content view shown.");
         }, 1000); 
     });
 
 
     // --- MEMUAT & MENAMPILKAN DATA ---
     async function fetchInitialData() {
+        console.log("Fetching invitation data from Supabase...");
         const { data: invData, error: invError } = await supabaseClient.from('invitations').select('*').eq('id', 1).single();
+        
         if (invError) {
              console.error("Error fetching invitation data:", invError);
-             loadingIndicator.innerHTML = '<p class="text-red-500">Gagal memuat data. Periksa aturan RLS Anda.</p>';
+             if(loadingIndicator) loadingIndicator.innerHTML = `<p class="text-red-500">Gagal memuat data undangan. Kesalahan: ${invError.message}</p>`;
+             return; // Hentikan jika data utama gagal
         } else if (invData) {
+            console.log("Invitation data fetched:", invData);
             invitationData = invData;
             renderInvitation(invitationData);
+        } else {
+            console.warn("No invitation data found for ID 1.");
+             if(loadingIndicator) loadingIndicator.innerHTML = '<p class="text-orange-500">Data undangan belum diisi.</p>';
         }
+        
+        console.log("Fetching wishes...");
         await fetchWishes();
-        // Sembunyikan loading setelah data tamu (non-admin) dimuat
-        if(!currentUser) {
+        
+        // Sembunyikan loading setelah semua data tamu (non-admin) dimuat
+        if(!currentUser && loadingIndicator) {
+            console.log("Hiding loading indicator for guest.");
             loadingIndicator.classList.add('hidden');
         }
     }
@@ -625,12 +662,19 @@
         const { data: wishes, error: wishesError } = await supabaseClient.from('wishes').select('*').order('timestamp', { ascending: false }).limit(50);
         
         const wishesList = document.getElementById('wishes-list');
-        wishesList.innerHTML = '';
+        if (!wishesList) {
+             console.error("Element #wishes-list not found.");
+             return;
+        }
+        wishesList.innerHTML = ''; // Kosongkan dulu
         if (wishesError) {
             console.error("Error fetching wishes:", wishesError);
+            wishesList.innerHTML = '<p class="text-center text-red-500">Gagal memuat ucapan.</p>';
         } else if (wishes.length === 0) {
+            console.log("No wishes found.");
             wishesList.innerHTML = '<p class="text-center text-gray-500">Jadilah yang pertama mengirim ucapan!</p>';
         } else {
+            console.log("Wishes fetched:", wishes.length);
             wishes.forEach(wish => {
                 const wishElement = document.createElement('div');
                 wishElement.className = 'bg-white p-4 rounded-lg shadow';
@@ -651,124 +695,172 @@
     }
 
     // --- REALTIME (Langsung update jika ada perubahan) ---
-    supabaseClient.channel('public:invitations')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'invitations', filter: 'id=eq.1' }, payload => {
-        console.log('Invitation data changed!', payload.new);
-        invitationData = payload.new;
-        renderInvitation(invitationData);
-      })
-      .subscribe();
+     try {
+        supabaseClient.channel('public:invitations')
+          .on('postgres_changes', { event: '*', schema: 'public', table: 'invitations', filter: 'id=eq.1' }, payload => {
+            console.log('Realtime: Invitation data changed!', payload.new);
+            invitationData = payload.new;
+            renderInvitation(invitationData);
+          })
+          .subscribe((status) => {
+             if (status === 'SUBSCRIBED') {
+                 console.log('Subscribed to invitations changes!');
+             } else {
+                 console.log('Subscription status invitations:', status);
+             }
+         });
 
-    supabaseClient.channel('public:wishes')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'wishes' }, payload => {
-        console.log('New wish received!', payload.new);
-        fetchWishes();
-      })
-      .subscribe();
+        supabaseClient.channel('public:wishes')
+          .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'wishes' }, payload => {
+            console.log('Realtime: New wish received!', payload.new);
+            fetchWishes(); // Ambil ulang daftar ucapan
+          })
+          .subscribe((status) => {
+             if (status === 'SUBSCRIBED') {
+                 console.log('Subscribed to wishes changes!');
+             } else {
+                 console.log('Subscription status wishes:', status);
+             }
+         });
+    } catch(e) {
+        console.error("Error setting up realtime subscriptions:", e);
+    }
+
 
     function renderInvitation(data) {
+        console.log("Rendering invitation data...");
         // Halaman Sampul
-        document.getElementById('cover-section').style.backgroundImage = `url('${data.coverPhoto || 'https://placehold.co/1080x1920/1a202c/d4af37?text=Foto+Cover'}')`;
-        document.getElementById('bride-groom-cover').textContent = data.brideGroomNames || 'Pengantin & Pengantin';
+        const coverSection = document.getElementById('cover-section');
+        if (coverSection) coverSection.style.backgroundImage = `url('${data.coverPhoto || 'https://placehold.co/1080x1920/1a202c/d4af37?text=Foto+Cover'}')`;
+        const brideGroomCover = document.getElementById('bride-groom-cover');
+        if (brideGroomCover) brideGroomCover.textContent = data.brideGroomNames || 'Pengantin & Pengantin';
         
         // Detail Umum
-        document.getElementById('bride-groom-detail').textContent = data.brideGroomNames || 'Pengantin & Pengantin';
-        document.getElementById('parents-detail').innerHTML = `${data.groomParents || 'Putra dari Bapak ... & Ibu ...'}<br>${data.brideParents || 'dan Putri dari Bapak ... & Ibu ...'}`;
+        const brideGroomDetail = document.getElementById('bride-groom-detail');
+        if (brideGroomDetail) brideGroomDetail.textContent = data.brideGroomNames || 'Pengantin & Pengantin';
+        const parentsDetail = document.getElementById('parents-detail');
+        if (parentsDetail) parentsDetail.innerHTML = `${data.groomParents || 'Putra dari Bapak ... & Ibu ...'}<br>${data.brideParents || 'dan Putri dari Bapak ... & Ibu ...'}`;
         
         // Profil Mempelai
-        document.getElementById('groom-name').textContent = data.groomName || 'Nama Mempelai Pria';
-        document.getElementById('groom-info').textContent = data.groomInfo || 'Info tambahan mempelai pria';
-        document.getElementById('groom-photo').src = data.groomPhoto || 'https://placehold.co/400x600/1a202c/d4af37?text=Foto+Pria';
+        const groomName = document.getElementById('groom-name');
+        if (groomName) groomName.textContent = data.groomName || 'Nama Mempelai Pria';
+        const groomInfo = document.getElementById('groom-info');
+        if (groomInfo) groomInfo.textContent = data.groomInfo || 'Info tambahan mempelai pria';
+        const groomPhoto = document.getElementById('groom-photo');
+        if (groomPhoto) groomPhoto.src = data.groomPhoto || 'https://placehold.co/400x600/1a202c/d4af37?text=Foto+Pria';
         const groomSocial = document.getElementById('groom-social-link');
-        if(data.groomSocial) { groomSocial.href = data.groomSocial; groomSocial.classList.remove('hidden'); } else { groomSocial.classList.add('hidden'); }
+        if(groomSocial) { if(data.groomSocial) { groomSocial.href = data.groomSocial; groomSocial.classList.remove('hidden'); } else { groomSocial.classList.add('hidden'); } }
 
-        document.getElementById('bride-name').textContent = data.brideName || 'Nama Mempelai Wanita';
-        document.getElementById('bride-info').textContent = data.brideInfo || 'Info tambahan mempelai wanita';
-        document.getElementById('bride-photo').src = data.bridePhoto || 'https://placehold.co/400x600/1a202c/d4af37?text=Foto+Wanita';
+        const brideName = document.getElementById('bride-name');
+        if (brideName) brideName.textContent = data.brideName || 'Nama Mempelai Wanita';
+        const brideInfo = document.getElementById('bride-info');
+        if (brideInfo) brideInfo.textContent = data.brideInfo || 'Info tambahan mempelai wanita';
+        const bridePhoto = document.getElementById('bride-photo');
+        if (bridePhoto) bridePhoto.src = data.bridePhoto || 'https://placehold.co/400x600/1a202c/d4af37?text=Foto+Wanita';
         const brideSocial = document.getElementById('bride-social-link');
-        if(data.brideSocial) { brideSocial.href = data.brideSocial; brideSocial.classList.remove('hidden'); } else { brideSocial.classList.add('hidden'); }
+        if(brideSocial) { if(data.brideSocial) { brideSocial.href = data.brideSocial; brideSocial.classList.remove('hidden'); } else { brideSocial.classList.add('hidden'); } }
 
         // Detail Acara
         const ceremonyDateStr = data.ceremonyDate || 'Minggu, 04 Januari 2026';
         const ceremonyTimeStr = data.ceremonyTime || '09:00 - 10:00 WIB';
 
-        document.getElementById('ceremony-date').textContent = ceremonyDateStr;
-        document.getElementById('ceremony-time').textContent = ceremonyTimeStr;
-        document.getElementById('ceremony-location').textContent = data.ceremonyLocation || 'Lokasi Akad';
-        document.getElementById('reception-date').textContent = data.receptionDate || 'Minggu, 04 Januari 2026';
-        document.getElementById('reception-time').textContent = data.receptionTime || '11:00 - 14:00 WIB';
-        document.getElementById('reception-location').textContent = data.receptionLocation || 'Lokasi Resepsi';
-        document.getElementById('wedding-date-cover').textContent = ceremonyDateStr; // Update tanggal di sampul
-        document.getElementById('map-link').href = data.mapLink || '#';
+        const ceremonyDateEl = document.getElementById('ceremony-date');
+        if (ceremonyDateEl) ceremonyDateEl.textContent = ceremonyDateStr;
+        const ceremonyTimeEl = document.getElementById('ceremony-time');
+        if (ceremonyTimeEl) ceremonyTimeEl.textContent = ceremonyTimeStr;
+        const ceremonyLocationEl = document.getElementById('ceremony-location');
+        if (ceremonyLocationEl) ceremonyLocationEl.textContent = data.ceremonyLocation || 'Lokasi Akad';
+        const receptionDateEl = document.getElementById('reception-date');
+        if (receptionDateEl) receptionDateEl.textContent = data.receptionDate || 'Minggu, 04 Januari 2026';
+        const receptionTimeEl = document.getElementById('reception-time');
+        if (receptionTimeEl) receptionTimeEl.textContent = data.receptionTime || '11:00 - 14:00 WIB';
+        const receptionLocationEl = document.getElementById('reception-location');
+        if (receptionLocationEl) receptionLocationEl.textContent = data.receptionLocation || 'Lokasi Resepsi';
+        const weddingDateCover = document.getElementById('wedding-date-cover');
+        if (weddingDateCover) weddingDateCover.textContent = ceremonyDateStr; // Update tanggal di sampul
+        const mapLink = document.getElementById('map-link');
+        if (mapLink) mapLink.href = data.mapLink || '#';
         
         // Kisah Cinta
-        document.getElementById('love-story-content').innerHTML = data.loveStory ? data.loveStory.replace(/\n/g, '<br>') : 'Cerita cinta kami dimulai di sini...';
+        const loveStoryContent = document.getElementById('love-story-content');
+        if (loveStoryContent) loveStoryContent.innerHTML = data.loveStory ? data.loveStory.replace(/\n/g, '<br>') : 'Cerita cinta kami dimulai di sini...';
         
         // Galeri
         const galleryGrid = document.getElementById('gallery-grid');
-        galleryGrid.innerHTML = '';
-        if (data.galleryPhotos && data.galleryPhotos.length > 0) {
-            data.galleryPhotos.forEach(url => {
-                const img = document.createElement('img');
-                img.src = url;
-                img.className = 'w-full h-auto object-cover rounded-lg shadow-md cursor-pointer aspect-square hover:scale-105 transition-transform duration-300';
-                img.onclick = () => openLightbox(url);
-                galleryGrid.appendChild(img);
-            });
-        } else {
-             galleryGrid.innerHTML = `
-                <img src="https://placehold.co/600x600/f7fafc/d4af37?text=Foto+1" class="w-full h-auto object-cover rounded-lg shadow-md cursor-pointer aspect-square">
-                <img src="https://placehold.co/600x600/f7fafc/d4af37?text=Foto+2" class="w-full h-auto object-cover rounded-lg shadow-md cursor-pointer aspect-square">
-                <img src="https://placehold.co/600x600/f7fafc/d4af37?text=Foto+3" class="w-full h-auto object-cover rounded-lg shadow-md cursor-pointer aspect-square">
-                <img src="https://placehold.co/600x600/f7fafc/d4af37?text=Foto+4" class="w-full h-auto object-cover rounded-lg shadow-md cursor-pointer aspect-square">
-                <img src="https://placehold.co/600x600/f7fafc/d4af37?text=Foto+5" class="w-full h-auto object-cover rounded-lg shadow-md cursor-pointer aspect-square">
-                <img src="https://placehold.co/600x600/f7fafc/d4af37?text=Foto+6" class="w-full h-auto object-cover rounded-lg shadow-md cursor-pointer aspect-square">`;
+        if (galleryGrid) {
+            galleryGrid.innerHTML = ''; // Kosongkan dulu
+            if (data.galleryPhotos && data.galleryPhotos.length > 0) {
+                data.galleryPhotos.forEach(url => {
+                    const img = document.createElement('img');
+                    img.src = url;
+                    img.className = 'w-full h-auto object-cover rounded-lg shadow-md cursor-pointer aspect-square hover:scale-105 transition-transform duration-300';
+                    img.onclick = () => openLightbox(url);
+                    galleryGrid.appendChild(img);
+                });
+            } else {
+                 // Tampilkan placeholder jika galeri kosong
+                 galleryGrid.innerHTML = `
+                    <img src="https://placehold.co/600x600/f7fafc/d4af37?text=Foto+1" class="w-full h-auto object-cover rounded-lg shadow-md cursor-pointer aspect-square">
+                    <img src="https://placehold.co/600x600/f7fafc/d4af37?text=Foto+2" class="w-full h-auto object-cover rounded-lg shadow-md cursor-pointer aspect-square">
+                    <img src="https://placehold.co/600x600/f7fafc/d4af37?text=Foto+3" class="w-full h-auto object-cover rounded-lg shadow-md cursor-pointer aspect-square">
+                    <img src="https://placehold.co/600x600/f7fafc/d4af37?text=Foto+4" class="w-full h-auto object-cover rounded-lg shadow-md cursor-pointer aspect-square">
+                    <img src="https://placehold.co/600x600/f7fafc/d4af37?text=Foto+5" class="w-full h-auto object-cover rounded-lg shadow-md cursor-pointer aspect-square">
+                    <img src="https://placehold.co/600x600/f7fafc/d4af37?text=Foto+6" class="w-full h-auto object-cover rounded-lg shadow-md cursor-pointer aspect-square">`;
+            }
         }
         
         // Penutup
-        document.getElementById('closing-text').textContent = data.closingText || 'Merupakan suatu kehormatan...';
-        document.getElementById('bride-groom-closing').innerHTML = `Kami yang Berbahagia,<br>${data.brideGroomNames || 'Pengantin'}`;
+        const closingText = document.getElementById('closing-text');
+        if (closingText) closingText.textContent = data.closingText || 'Merupakan suatu kehormatan...';
+        const brideGroomClosing = document.getElementById('bride-groom-closing');
+        if (brideGroomClosing) brideGroomClosing.innerHTML = `Kami yang Berbahagia,<br>${data.brideGroomNames || 'Pengantin'}`;
         
         // Musik
         const audio = document.getElementById('background-music');
-        if (data.musicUrl && audio.src !== data.musicUrl) {
+        if (audio && data.musicUrl && audio.src !== data.musicUrl) {
             audio.src = data.musicUrl;
+            console.log("Music URL updated.");
         }
         startCountdown(ceremonyDateStr, ceremonyTimeStr);
         
         // Amplop Digital
         const giftContainer = document.getElementById('gift-cards-container');
-        giftContainer.innerHTML = '';
-        for (let i = 1; i <= 2; i++) {
-            if (data[`giftBankName${i}`] && data[`giftBankAccount${i}`]) {
-                const card = document.createElement('div');
-                card.className = 'bg-gray-50 p-6 rounded-lg shadow-lg text-center border border-gray-200';
-                card.innerHTML = `
-                    <h3 class="font-cormorant text-2xl gold-text">${escapeHTML(data[`giftBankName${i}`])}</h3>
-                    <p class="mt-4 text-2xl font-semibold text-gray-800">${escapeHTML(data[`giftBankAccount${i}`])}</p>
-                    <p class="mt-1 text-sm text-gray-600">a.n. ${escapeHTML(data[`giftBankHolder${i}`])}</p>
-                    <button class="copy-btn mt-4 bg-gray-800 text-white py-2 px-6 rounded-full hover:bg-gray-700 transition flex items-center justify-center mx-auto" data-account="${escapeHTML(data[`giftBankAccount${i}`])}">
-                        <i data-lucide="copy" class="w-4 h-4 mr-2"></i>
-                        <span>Salin Rekening</span>
-                    </button>
-                `;
-                giftContainer.appendChild(card);
+        if(giftContainer) {
+            giftContainer.innerHTML = ''; // Kosongkan dulu
+            let giftAdded = false;
+            for (let i = 1; i <= 2; i++) {
+                if (data[`giftBankName${i}`] && data[`giftBankAccount${i}`]) {
+                    const card = document.createElement('div');
+                    card.className = 'bg-gray-50 p-6 rounded-lg shadow-lg text-center border border-gray-200';
+                    card.innerHTML = `
+                        <h3 class="font-cormorant text-2xl gold-text">${escapeHTML(data[`giftBankName${i}`])}</h3>
+                        <p class="mt-4 text-2xl font-semibold text-gray-800">${escapeHTML(data[`giftBankAccount${i}`])}</p>
+                        <p class="mt-1 text-sm text-gray-600">a.n. ${escapeHTML(data[`giftBankHolder${i}`])}</p>
+                        <button class="copy-btn mt-4 bg-gray-800 text-white py-2 px-6 rounded-full hover:bg-gray-700 transition flex items-center justify-center mx-auto" data-account="${escapeHTML(data[`giftBankAccount${i}`])}">
+                            <i data-lucide="copy" class="w-4 h-4 mr-2"></i>
+                            <span>Salin Rekening</span>
+                        </button>
+                    `;
+                    giftContainer.appendChild(card);
+                    giftAdded = true;
+                }
+            }
+            // Jika tidak ada data amplop, tampilkan placeholder
+            if(!giftAdded) {
+                giftContainer.innerHTML = `
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-lg text-center border border-gray-200 md:col-span-2"> <!-- Span agar ditengah jika ganjil -->
+                        <h3 class="font-cormorant text-2xl gold-text">Nama Bank/E-Wallet</h3>
+                        <p class="mt-4 text-2xl font-semibold text-gray-800">1234567890</p>
+                        <p class="mt-1 text-sm text-gray-600">a.n. Nama Pemilik</p>
+                        <button class="copy-btn mt-4 bg-gray-800 text-white py-2 px-6 rounded-full hover:bg-gray-700 transition flex items-center justify-center mx-auto" data-account="1234567890">
+                            <i data-lucide="copy" class="w-4 h-4 mr-2"></i>
+                            <span>Salin Rekening</span>
+                        </button>
+                    </div>`;
             }
         }
-        // Jika tidak ada data amplop, tampilkan placeholder
-        if(giftContainer.innerHTML === '') {
-            giftContainer.innerHTML = `
-                <div class="bg-gray-50 p-6 rounded-lg shadow-lg text-center border border-gray-200">
-                    <h3 class="font-cormorant text-2xl gold-text">Nama Bank/E-Wallet</h3>
-                    <p class="mt-4 text-2xl font-semibold text-gray-800">1234567890</p>
-                    <p class="mt-1 text-sm text-gray-600">a.n. Nama Pemilik</p>
-                    <button class="copy-btn mt-4 bg-gray-800 text-white py-2 px-6 rounded-full hover:bg-gray-700 transition flex items-center justify-center mx-auto" data-account="1234567890">
-                        <i data-lucide="copy" class="w-4 h-4 mr-2"></i>
-                        <span>Salin Rekening</span>
-                    </button>
-                </div>`;
-        }
-        lucide.createIcons();
+        lucide.createIcons(); // Panggil ulang setelah menambah ikon baru
+        console.log("Invitation rendering complete.");
     }
 
     // --- HITUNG MUNDUR ---
@@ -789,7 +881,8 @@
 
             if (isNaN(day) || month === undefined || isNaN(year) || isNaN(hour) || isNaN(minute)) {
                 console.error("Invalid date/time format for countdown:", dateStr, timeStr);
-                document.getElementById('countdown').innerHTML = '<p class="text-2xl font-cormorant">Menghitung...</p>';
+                const countdownEl = document.getElementById('countdown');
+                if(countdownEl) countdownEl.innerHTML = '<p class="text-2xl font-cormorant">Menghitung...</p>';
                 return;
             }
 
@@ -798,19 +891,27 @@
             countdownInterval = setInterval(() => {
                 const now = new Date().getTime();
                 const distance = targetDate - now;
+                const daysEl = document.getElementById('days');
+                const hoursEl = document.getElementById('hours');
+                const minutesEl = document.getElementById('minutes');
+                const secondsEl = document.getElementById('seconds');
+                const countdownEl = document.getElementById('countdown');
+
+
                 if (distance < 0) {
                     clearInterval(countdownInterval);
-                    document.getElementById('countdown').innerHTML = '<p class="text-2xl font-cormorant">Acara Telah Berlangsung</p>';
+                     if(countdownEl) countdownEl.innerHTML = '<p class="text-2xl font-cormorant">Acara Telah Berlangsung</p>';
                     return;
                 }
-                document.getElementById('days').textContent = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-                document.getElementById('hours').textContent = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-                document.getElementById('minutes').textContent = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-                document.getElementById('seconds').textContent = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+                if(daysEl) daysEl.textContent = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                if(hoursEl) hoursEl.textContent = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                if(minutesEl) minutesEl.textContent = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                if(secondsEl) secondsEl.textContent = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
             }, 1000);
         } catch (e) {
             console.error("Error parsing countdown date:", e);
-            document.getElementById('countdown').innerHTML = '<p class="text-2xl font-cormorant">Menghitung...</p>';
+            const countdownEl = document.getElementById('countdown');
+             if(countdownEl) countdownEl.innerHTML = '<p class="text-2xl font-cormorant">Menghitung...</p>';
         }
     }
     
@@ -822,6 +923,7 @@
     let currentUploadType = null;
     
     function openTextEditModal(section, title, fields) {
+         console.log(`Opening text edit modal for section: ${section}`);
         document.getElementById('modal-title').textContent = title;
         const formFields = document.getElementById('form-fields');
         formFields.innerHTML = '';
@@ -851,12 +953,14 @@
     
     document.getElementById('text-edit-form').addEventListener('submit', async (e) => {
         e.preventDefault();
+         console.log("Submitting text edit form...");
         const updatedData = {};
         const inputs = e.target.querySelectorAll('input, textarea');
         inputs.forEach(input => {
             const fieldId = input.id.replace('field-', '');
             updatedData[fieldId] = input.value;
         });
+        console.log("Updating data:", updatedData);
 
         const { error } = await supabaseClient.from('invitations').update(updatedData).eq('id', 1);
 
@@ -864,20 +968,28 @@
             console.error("Error updating document: ", error);
             alert('Gagal menyimpan perubahan. Cek konsol untuk detail.');
         } else {
+             console.log("Text data updated successfully.");
             textEditModal.classList.add('hidden');
         }
     });
-    document.getElementById('cancel-text-edit').addEventListener('click', () => textEditModal.classList.add('hidden'));
+    document.getElementById('cancel-text-edit').addEventListener('click', () => {
+         console.log("Closing text edit modal.");
+         textEditModal.classList.add('hidden');
+    });
 
     // Event Listener untuk tombol-tombol edit
-    document.getElementById('edit-details-btn').addEventListener('click', () => {
+    const editDetailsBtn = document.getElementById('edit-details-btn');
+    if(editDetailsBtn) editDetailsBtn.addEventListener('click', () => {
         openTextEditModal('details', 'Edit Detail Acara', [
             { id: 'brideGroomNames', label: 'Nama Kedua Mempelai (e.g., John & Jane)' }, { id: 'groomParents', label: 'Orang Tua Mempelai Pria' }, { id: 'brideParents', label: 'Orang Tua Mempelai Wanita' }, { id: 'ceremonyDate', label: 'Tanggal Akad (e.g., Minggu, 04 Januari 2026)' }, { id: 'ceremonyTime', label: 'Waktu Akad (e.g., 09:00 - 10:00 WIB)' }, { id: 'ceremonyLocation', label: 'Lokasi Akad' }, { id: 'receptionDate', label: 'Tanggal Resepsi' }, { id: 'receptionTime', label: 'Waktu Resepsi' }, { id: 'receptionLocation', label: 'Lokasi Resepsi' }, { id: 'mapLink', label: 'Link Google Maps' },
         ]);
     });
-    document.getElementById('edit-story-btn').addEventListener('click', () => openTextEditModal('story', 'Edit Kisah Cinta', [{ id: 'loveStory', label: 'Kisah Cinta', type: 'textarea' }]));
-    document.getElementById('edit-closing-btn').addEventListener('click', () => openTextEditModal('closing', 'Edit Teks Penutup', [{ id: 'closingText', label: 'Teks Penutup', type: 'textarea' }]));
-    document.getElementById('edit-gift-btn').addEventListener('click', () => {
+    const editStoryBtn = document.getElementById('edit-story-btn');
+    if(editStoryBtn) editStoryBtn.addEventListener('click', () => openTextEditModal('story', 'Edit Kisah Cinta', [{ id: 'loveStory', label: 'Kisah Cinta', type: 'textarea' }]));
+    const editClosingBtn = document.getElementById('edit-closing-btn');
+    if(editClosingBtn) editClosingBtn.addEventListener('click', () => openTextEditModal('closing', 'Edit Teks Penutup', [{ id: 'closingText', label: 'Teks Penutup', type: 'textarea' }]));
+    const editGiftBtn = document.getElementById('edit-gift-btn');
+    if(editGiftBtn) editGiftBtn.addEventListener('click', () => {
         openTextEditModal('gift', 'Edit Amplop Digital', [
             { id: 'giftBankName1', label: 'Nama Bank / E-Wallet 1 (e.g., DANA)' }, { id: 'giftBankAccount1', label: 'Nomor Rekening / Telepon 1' }, { id: 'giftBankHolder1', label: 'Atas Nama 1' },
             { id: 'giftBankName2', label: 'Nama Bank / E-Wallet 2 (opsional)' }, { id: 'giftBankAccount2', label: 'Nomor Rekening / Telepon 2 (opsional)' }, { id: 'giftBankHolder2', label: 'Atas Nama 2 (opsional)' },
@@ -885,7 +997,9 @@
     });
 
     // --- MODAL EDIT PROFIL ---
-    document.getElementById('edit-profile-btn').addEventListener('click', () => {
+    const editProfileBtn = document.getElementById('edit-profile-btn');
+    if(editProfileBtn) editProfileBtn.addEventListener('click', () => {
+         console.log("Opening profile edit modal.");
         document.getElementById('groomName').value = invitationData.groomName || '';
         document.getElementById('groomInfo').value = invitationData.groomInfo || '';
         document.getElementById('groomSocial').value = invitationData.groomSocial || '';
@@ -897,10 +1011,16 @@
         profileEditModal.classList.remove('hidden');
     });
 
-    document.getElementById('cancel-profile-edit').addEventListener('click', () => profileEditModal.classList.add('hidden'));
+    const cancelProfileEditBtn = document.getElementById('cancel-profile-edit');
+    if(cancelProfileEditBtn) cancelProfileEditBtn.addEventListener('click', () => {
+        console.log("Closing profile edit modal.");
+        profileEditModal.classList.add('hidden');
+    });
 
-    document.getElementById('profile-edit-form').addEventListener('submit', async (e) => {
+    const profileEditForm = document.getElementById('profile-edit-form');
+    if(profileEditForm) profileEditForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+         console.log("Submitting profile edit form...");
         const groomPhotoFile = document.getElementById('groomPhoto').files[0];
         const bridePhotoFile = document.getElementById('bridePhoto').files[0];
 
@@ -912,9 +1032,11 @@
             brideInfo: document.getElementById('brideInfo').value,
             brideSocial: document.getElementById('brideSocial').value,
         };
+        console.log("Profile text data:", updatedData);
 
         const uploadProfilePhoto = async (file, profileType) => {
             if (!file) return null;
+             console.log(`Uploading ${profileType} photo...`);
             const filePath = `profile/${profileType}_${Date.now()}.${file.name.split('.').pop()}`;
             const { error: uploadError } = await supabaseClient.storage.from(BUCKET_NAME).upload(filePath, file, { upsert: true });
             if (uploadError) {
@@ -922,6 +1044,7 @@
                 return null;
             }
             const { data: urlData } = supabaseClient.storage.from(BUCKET_NAME).getPublicUrl(filePath);
+             console.log(`${profileType} photo uploaded: ${urlData.publicUrl}`);
             return urlData.publicUrl;
         };
 
@@ -931,6 +1054,7 @@
         const bridePhotoUrl = await uploadProfilePhoto(bridePhotoFile, 'bride');
         if (bridePhotoUrl) updatedData.bridePhoto = bridePhotoUrl;
 
+        console.log("Updating profile data in database:", updatedData);
         const { error: dbError } = await supabaseClient.from('invitations').update(updatedData).eq('id', 1);
 
         if (dbError) {
@@ -938,12 +1062,14 @@
             console.error('Profile update failed:', dbError);
         } else {
             alert('Profil berhasil disimpan!');
+             console.log("Profile data updated successfully.");
             profileEditModal.classList.add('hidden');
         }
     });
 
     // --- LOGIKA UPLOAD FILE (COVER & MUSIK) ---
     function openFileUploadModal(type, title, acceptedFiles) {
+         console.log(`Opening file upload modal for type: ${type}`);
         currentUploadType = type;
         document.getElementById('file-modal-title').textContent = title;
         document.getElementById('file-type-info').textContent = `File yang diterima: ${acceptedFiles}`;
@@ -955,12 +1081,22 @@
         fileUploadModal.classList.remove('hidden');
     }
     
-    document.getElementById('cancel-file-upload').addEventListener('click', () => fileUploadModal.classList.add('hidden'));
+    const cancelFileUploadBtn = document.getElementById('cancel-file-upload');
+    if(cancelFileUploadBtn) cancelFileUploadBtn.addEventListener('click', () => {
+         console.log("Closing file upload modal.");
+         fileUploadModal.classList.add('hidden');
+    });
     
-    document.getElementById('file-upload-form').addEventListener('submit', async (e) => {
+    const fileUploadForm = document.getElementById('file-upload-form');
+    if(fileUploadForm) fileUploadForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+         console.log("Submitting file upload form...");
         const file = document.getElementById('file-input').files[0];
-        if (!file) return;
+        if (!file) {
+             console.log("No file selected.");
+             return;
+        }
+        console.log("File selected:", file.name);
 
         let filePath, dataField;
         if (currentUploadType === 'cover') {
@@ -970,54 +1106,73 @@
             filePath = `backgroundMusic.${file.name.split('.').pop()}`;
             dataField = 'musicUrl';
         }
+         console.log("Uploading to path:", filePath);
 
         const { error: uploadError } = await supabaseClient.storage.from(BUCKET_NAME).upload(filePath, file, { upsert: true });
 
         if (uploadError) {
             console.error('Upload failed:', uploadError);
-            alert('Upload gagal!');
+            alert(`Upload gagal! Error: ${uploadError.message}`); // Tampilkan pesan error
             return;
         }
+        console.log("File uploaded successfully.");
 
         const { data: urlData } = supabaseClient.storage.from(BUCKET_NAME).getPublicUrl(filePath);
         const publicURL = `${urlData.publicUrl}?t=${new Date().getTime()}`; // Tambahkan cache-buster
+         console.log("Public URL:", publicURL);
 
+        console.log("Updating database with new URL...");
         const { error: dbError } = await supabaseClient.from('invitations').update({ [dataField]: publicURL }).eq('id', 1);
 
         if (dbError) {
              console.error('DB update failed:', dbError);
-             alert('Upload berhasil, tapi gagal menyimpan link ke database.');
+             alert(`Upload berhasil, tapi gagal menyimpan link ke database. Error: ${dbError.message}`);
         } else {
+             console.log("Database updated successfully.");
             fileUploadModal.classList.add('hidden');
-            alert("File berhasil diupload! Refresh halaman untuk melihat perubahan.");
+            alert("File berhasil diupload! Mungkin perlu refresh halaman untuk melihat perubahan foto cover.");
         }
     });
 
     // Event listener untuk tombol edit cover melayang
-    document.getElementById('edit-cover-btn-floating').addEventListener('click', () => openFileUploadModal('cover', 'Ganti Foto Cover', 'image/*'));
-    document.getElementById('edit-music-btn').addEventListener('click', () => openFileUploadModal('music', 'Ganti Musik Latar', '.mp3,.wav'));
+    const editCoverBtnFloating = document.getElementById('edit-cover-btn-floating');
+    if(editCoverBtnFloating) editCoverBtnFloating.addEventListener('click', () => openFileUploadModal('cover', 'Ganti Foto Cover', 'image/*'));
+    const editMusicBtn = document.getElementById('edit-music-btn');
+    if(editMusicBtn) editMusicBtn.addEventListener('click', () => openFileUploadModal('music', 'Ganti Musik Latar', '.mp3,.wav'));
 
     // --- LOGIKA EDIT GALERI ---
-    document.getElementById('edit-gallery-btn').addEventListener('click', () => {
+    const editGalleryBtn = document.getElementById('edit-gallery-btn');
+    if(editGalleryBtn) editGalleryBtn.addEventListener('click', () => {
+         console.log("Opening gallery edit modal.");
         renderCurrentGalleryImages();
         galleryEditModal.classList.remove('hidden');
     });
-    document.getElementById('close-gallery-edit').addEventListener('click', () => galleryEditModal.classList.add('hidden'));
+    const closeGalleryEditBtn = document.getElementById('close-gallery-edit');
+    if(closeGalleryEditBtn) closeGalleryEditBtn.addEventListener('click', () => {
+         console.log("Closing gallery edit modal.");
+         galleryEditModal.classList.add('hidden');
+    });
 
     function renderCurrentGalleryImages() {
         const container = document.getElementById('current-gallery-images');
         container.innerHTML = '';
         const photos = invitationData.galleryPhotos || [];
+        console.log("Rendering current gallery images:", photos.length);
         photos.forEach((url) => {
             const imgContainer = document.createElement('div');
-            imgContainer.className = 'relative';
-            imgContainer.innerHTML = `<img src="${url}" class="w-full h-24 object-cover rounded"><button data-url="${url}" class="delete-gallery-img absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 w-6 h-6 flex items-center justify-center"><i data-lucide="trash-2" class="w-4 h-4"></i></button>`;
+            imgContainer.className = 'relative group'; // Tambah group untuk hover
+            imgContainer.innerHTML = `
+                <img src="${url}" class="w-full h-24 object-cover rounded">
+                <button data-url="${url}" class="delete-gallery-img absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                </button>`;
             container.appendChild(imgContainer);
         });
         lucide.createIcons();
         document.querySelectorAll('.delete-gallery-img').forEach(btn => {
             btn.addEventListener('click', async (e) => {
                 const urlToDelete = e.currentTarget.dataset.url;
+                 console.log("Attempting to delete gallery image:", urlToDelete);
                 if (confirm('Anda yakin ingin menghapus foto ini?')) {
                     await deleteGalleryImage(urlToDelete);
                 }
@@ -1027,27 +1182,39 @@
 
     async function deleteGalleryImage(url) {
         let photos = [...(invitationData.galleryPhotos || [])];
-        const pathToDelete = url.split(`${BUCKET_NAME}/`)[1].split('?')[0]; // Hapus cache-buster jika ada
+        const pathToDelete = url.split(`${BUCKET_NAME}/`)[1].split('?')[0]; // Hapus cache-buster
+        console.log("Deleting from storage path:", pathToDelete);
         
         const { error: storageError } = await supabaseClient.storage.from(BUCKET_NAME).remove([pathToDelete]);
-        if (storageError) console.error("Error deleting from storage:", storageError);
+        if (storageError) console.error("Error deleting from storage:", storageError); // Log tapi jangan hentikan
 
         photos = photos.filter(photoUrl => photoUrl !== url);
+        console.log("Updating gallery photos in database:", photos);
         const { error: dbError } = await supabaseClient.from('invitations').update({ galleryPhotos: photos }).eq('id', 1);
 
         if (dbError) {
             alert('Gagal menghapus foto dari database.');
+             console.error("Gallery DB update failed after delete:", dbError);
         } else {
             alert('Foto berhasil dihapus.');
+             console.log("Gallery photo deleted successfully.");
+             // Render ulang gambar di modal setelah hapus
+             renderCurrentGalleryImages();
         }
     }
     
-    document.getElementById('gallery-file-input').addEventListener('change', async (e) => {
+    const galleryFileInput = document.getElementById('gallery-file-input');
+    if(galleryFileInput) galleryFileInput.addEventListener('change', async (e) => {
         const files = e.target.files;
         if (!files.length) return;
+        console.log(`Uploading ${files.length} gallery photos...`);
         
         let existingPhotos = [...(invitationData.galleryPhotos || [])];
         const uploadPromises = [];
+        const progressBarContainer = document.getElementById('gallery-progress-bar-container');
+        const progressBar = document.getElementById('gallery-progress-bar');
+        progressBarContainer.classList.remove('hidden');
+        progressBar.style.width = '0%';
 
         for (const file of Array.from(files)) {
             const filePath = `gallery/${Date.now()}_${file.name}`;
@@ -1059,27 +1226,48 @@
                             return null;
                         }
                         const { data: urlData } = supabaseClient.storage.from(BUCKET_NAME).getPublicUrl(data.path);
-                        return `${urlData.publicUrl}?t=${new Date().getTime()}`;
+                        const newUrl = `${urlData.publicUrl}?t=${new Date().getTime()}`;
+                         console.log(`Uploaded ${file.name} to ${newUrl}`);
+                        return newUrl;
                     })
             );
         }
-
+        
+        // Update progress bar (sederhana, hanya setelah semua selesai)
         const newUrls = (await Promise.all(uploadPromises)).filter(url => url !== null);
-        existingPhotos.push(...newUrls);
+        progressBar.style.width = '100%';
 
-        const { error: dbError } = await supabaseClient.from('invitations').update({ galleryPhotos: existingPhotos }).eq('id', 1);
+        if (newUrls.length > 0) {
+            existingPhotos.push(...newUrls);
+            console.log("Updating gallery photos in database with new URLs:", existingPhotos);
+            const { error: dbError } = await supabaseClient.from('invitations').update({ galleryPhotos: existingPhotos }).eq('id', 1);
 
-        if (dbError) {
-            alert("Sebagian/semua foto berhasil diupload, tapi gagal update database.");
+            if (dbError) {
+                alert("Sebagian/semua foto berhasil diupload, tapi gagal update database.");
+                 console.error("Gallery DB update failed after upload:", dbError);
+            } else {
+                alert('Semua foto berhasil diupload!');
+                 console.log("Gallery photos updated successfully.");
+                 // Render ulang gambar di modal setelah upload
+                 renderCurrentGalleryImages();
+            }
         } else {
-            alert('Semua foto berhasil diupload!');
+             alert('Tidak ada foto yang berhasil diupload.');
         }
+
+        // Reset input dan progress bar
         document.getElementById('gallery-file-input').value = '';
+        setTimeout(() => {
+            progressBarContainer.classList.add('hidden');
+            progressBar.style.width = '0%';
+        }, 1000);
     });
 
     // --- FORM UCAPAN ---
-    document.getElementById('wish-form').addEventListener('submit', async (e) => {
+    const wishForm = document.getElementById('wish-form');
+    if(wishForm) wishForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        console.log("Submitting wish form...");
         const nameInput = document.getElementById('guest-name');
         const wishInput = document.getElementById('guest-wish');
         const attendanceStatus = document.querySelector('input[name="attendance"]:checked').value;
@@ -1092,29 +1280,54 @@
             console.error("Error adding wish: ", error);
             alert('Gagal mengirim ucapan. Silakan coba lagi.');
         } else {
+             console.log("Wish submitted successfully.");
             nameInput.value = '';
             wishInput.value = '';
             alert('Terima kasih atas ucapan dan konfirmasi Anda!');
+            // fetchWishes(); // Tidak perlu jika realtime berfungsi
         }
     });
 
     // --- MUSIK & LIGHTBOX ---
     const musicBtn = document.getElementById('music-control-btn'), musicIcon = document.getElementById('music-icon'), audio = document.getElementById('background-music');
     
-    function toggleMusic() { audio.paused ? playMusic() : pauseMusic(); }
-    function playMusic() { audio.play().catch(e => console.log("Autoplay prevented.")); musicIcon.setAttribute('data-lucide', 'pause'); lucide.createIcons(); }
-    function pauseMusic() { audio.pause(); musicIcon.setAttribute('data-lucide', 'play'); lucide.createIcons(); }
-    musicBtn.addEventListener('click', toggleMusic);
+    function toggleMusic() { 
+        if (!audio) return;
+        audio.paused ? playMusic() : pauseMusic(); 
+    }
+    function playMusic() { 
+        if (!audio) return;
+        audio.play().then(() => {
+            console.log("Music playing.");
+            musicIcon.setAttribute('data-lucide', 'pause'); 
+            lucide.createIcons();
+        }).catch(e => console.log("Autoplay prevented or audio error:", e)); 
+    }
+    function pauseMusic() { 
+        if (!audio) return;
+        audio.pause(); 
+        console.log("Music paused.");
+        musicIcon.setAttribute('data-lucide', 'play'); 
+        lucide.createIcons(); 
+    }
+    if(musicBtn) musicBtn.addEventListener('click', toggleMusic);
 
     const lightbox = document.getElementById('lightbox'), lightboxImg = document.getElementById('lightbox-img'), closeLightboxBtn = document.getElementById('close-lightbox');
-    function openLightbox(src) { lightboxImg.src = src; lightbox.classList.remove('hidden'); }
-    function closeLightbox() { lightbox.classList.add('hidden'); }
-    closeLightboxBtn.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (e) => { if (e.target.id === 'lightbox') closeLightbox(); });
+    function openLightbox(src) { 
+        console.log("Opening lightbox:", src);
+        if(lightboxImg) lightboxImg.src = src; 
+        if(lightbox) lightbox.classList.remove('hidden'); 
+    }
+    function closeLightbox() { 
+        console.log("Closing lightbox.");
+        if(lightbox) lightbox.classList.add('hidden'); 
+    }
+    if(closeLightboxBtn) closeLightboxBtn.addEventListener('click', closeLightbox);
+    if(lightbox) lightbox.addEventListener('click', (e) => { if (e.target.id === 'lightbox') closeLightbox(); });
     
     // --- UTILITAS ---
     function escapeHTML(str) { 
-        if (!str) return '';
+        if (str === null || str === undefined) return '';
         const p = document.createElement('p'); 
         p.appendChild(document.createTextNode(str)); 
         return p.innerHTML; 
@@ -1134,29 +1347,51 @@
             flower.style.fontSize = `${Math.random() * 15 + 10}px`; // 10px to 25px
             container.appendChild(flower); 
         } 
+        console.log("Flowers created.");
     }
     
-    // Event listener untuk tombol "Salin"
+    // Event listener untuk tombol "Salin" (pakai event delegation)
     document.addEventListener('click', (e) => {
         const copyBtn = e.target.closest('.copy-btn');
         if (copyBtn) {
             const accountNumber = copyBtn.dataset.account;
+            console.log("Copy button clicked for account:", accountNumber);
             try {
                 const tempTextarea = document.createElement('textarea');
                 tempTextarea.value = accountNumber;
+                 // Hindari elemen terlihat
+                 tempTextarea.style.position = 'absolute';
+                 tempTextarea.style.left = '-9999px';
                 document.body.appendChild(tempTextarea);
                 tempTextarea.select();
-                document.execCommand('copy');
+                // document.execCommand('copy') mungkin tidak bekerja di semua browser/iframe
+                navigator.clipboard.writeText(accountNumber).then(() => {
+                    console.log("Account number copied to clipboard.");
+                    const btnSpan = copyBtn.querySelector('span');
+                    if (btnSpan) btnSpan.textContent = 'Berhasil Disalin!';
+                    setTimeout(() => {
+                        if (btnSpan) btnSpan.textContent = 'Salin Rekening';
+                    }, 2000);
+                }).catch(err => {
+                     console.error('Failed to copy text using Clipboard API: ', err);
+                     // Fallback ke execCommand jika API gagal
+                     try {
+                        document.execCommand('copy');
+                        console.log("Account number copied using execCommand.");
+                         const btnSpan = copyBtn.querySelector('span');
+                        if (btnSpan) btnSpan.textContent = 'Berhasil Disalin!';
+                        setTimeout(() => {
+                            if (btnSpan) btnSpan.textContent = 'Salin Rekening';
+                        }, 2000);
+                     } catch (execErr) {
+                         console.error('Failed to copy text using execCommand: ', execErr);
+                         alert('Gagal menyalin. Silakan salin secara manual.');
+                     }
+                });
                 document.body.removeChild(tempTextarea);
-                
-                const btnSpan = copyBtn.querySelector('span');
-                if (btnSpan) btnSpan.textContent = 'Berhasil Disalin!';
-                setTimeout(() => {
-                    if (btnSpan) btnSpan.textContent = 'Salin Rekening';
-                }, 2000);
             } catch (err) {
-                console.error('Failed to copy text: ', err);
-                alert('Gagal menyalin. Silakan salin secara manual.');
+                 console.error('General error during copy: ', err);
+                 alert('Gagal menyalin. Silakan salin secara manual.');
             }
         }
     });
@@ -1166,15 +1401,21 @@
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('is-visible');
+                 // Hentikan observasi setelah animasi berjalan sekali (opsional)
+                 // observer.unobserve(entry.target);
             }
         });
     }, { threshold: 0.1 });
 
     // --- MULAI APLIKASI ---
     if (supabaseClient) {
+        console.log("Initializing app...");
         handleGuestName();
         createFlowers();
         // Fungsi utama (fetchInitialData) sekarang dipanggil di dalam onAuthStateChange
+    } else {
+        console.error("Supabase client is not available. App initialization aborted.");
+        if(loadingIndicator) loadingIndicator.innerHTML = '<p class="text-red-500">Koneksi ke Supabase gagal. Tidak bisa memulai aplikasi.</p>';
     }
 </script>
 
