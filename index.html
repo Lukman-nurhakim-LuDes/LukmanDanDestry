@@ -126,26 +126,25 @@
     
     <div id="invitation-view" class="hidden">
         
-        <!-- NEW LANDING PAGE --><div id="landing-view" class="transition-opacity duration-1000">
+        <!-- NEW LANDING PAGE -->
+        <div id="landing-view" class="transition-opacity duration-1000">
             <section id="cover-section" class="relative min-h-screen bg-cover bg-center flex flex-col justify-center items-center text-white text-center p-4" style="background-image: url('https://placehold.co/1080x1920/1a202c/d4af37?text=Foto+Cover');">
                 <div class="absolute inset-0 bg-black bg-opacity-50"></div> <!-- Reverted overlay --><div class="relative z-10 flex flex-col h-full justify-center">
                     <div class="flex-grow flex flex-col justify-center items-center">
                         <h3 class="text-xl tracking-widest text-white/90">THE WEDDING OF</h3>
-                        <h1 id="bride-groom-cover" class="font-cormorant text-6xl md:text-8xl my-4 text-white">Pengantin</h1>
-                        <p id="wedding-date-cover" class="text-lg text-white/90">01 Januari 2026</p>
+                        <h1 id="bride-groom-cover" class="font-cormorant text-6xl md:text-8xl my-4">Pengantin & Pengantin</h1>
+                        <p id="wedding-date-cover" class="text-lg">01 Januari 2026</p>
                     </div>
                     <div class="pb-16">
-                         <p class="text-sm text-white/80">Kepada Yth.</p>
-                        <p id="guest-name-display" class="text-2xl font-semibold my-2 text-white">Bapak/Ibu/Saudara/i</p>
+                         <p class="text-sm">Kepada Yth.</p>
+                        <p id="guest-name-display" class="text-2xl font-semibold my-2">Bapak/Ibu/Saudara/i</p>
                         <button id="open-invitation-btn" class="mt-4 bg-white/20 backdrop-blur-sm border border-white/30 text-white py-3 px-8 rounded-full hover:bg-white/30 transition duration-300 flex items-center mx-auto">
                             <i data-lucide="book-open" class="w-5 h-5 mr-2"></i>
                             Buka Undangan
                         </button>
                     </div>
                 </div>
-                 <button id="edit-cover-btn" class="admin-only absolute top-4 right-4 bg-white/30 p-2 rounded-full hover:bg-white/50 transition">
-                    <i data-lucide="edit" class="w-5 h-5 text-white"></i>
-                </button>
+                 <!-- REMOVED: Old edit-cover-btn was here -->
             </section>
         </div>
 
@@ -315,6 +314,10 @@
                  <button id="logout-btn" class="admin-only bg-red-500 text-white p-3 rounded-full shadow-lg hover:bg-red-600 transition">
                     <i data-lucide="log-out" class="w-6 h-6"></i>
                 </button>
+                <!-- ADDED: New floating button to edit cover photo -->
+                <button id="edit-cover-btn-floating" class="admin-only bg-purple-500 text-white p-3 rounded-full shadow-lg hover:bg-purple-600 transition" title="Ganti Foto Cover">
+                    <i data-lucide="image" class="w-6 h-6"></i>
+                </button>
                 <div class="flex items-center space-x-2">
                     <button id="edit-music-btn" class="admin-only bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition">
                         <i data-lucide="music" class="w-6 h-6"></i>
@@ -461,25 +464,48 @@
     let currentUser = null;
     let invitationData = {};
     let countdownInterval;
+    let isDataLoaded = false; // Flag to prevent multiple data loads
 
     // --- AUTHENTICATION ---
-    supabaseClient.auth.onAuthStateChange((event, session) => {
+    supabaseClient.auth.onAuthStateChange(async (event, session) => {
         const isAdminPath = window.location.hash === '#admin';
         currentUser = session?.user;
 
-        if (currentUser) {
+        if (currentUser) { // USER IS LOGGED IN
             loginView.classList.add('hidden');
             invitationView.classList.remove('hidden');
             document.querySelectorAll('.admin-only').forEach(el => el.classList.remove('hidden'));
-        } else {
+
+            // User is admin, bypass landing page
+            landingView.classList.add('hidden');
+            mainContentView.classList.remove('hidden');
+            mainContentView.classList.add('opacity-100');
+            document.body.style.overflow = 'auto';
+
+            if (!isDataLoaded) {
+                await fetchInitialData();
+                isDataLoaded = true;
+                // Start observing sections
+                document.querySelectorAll('.animated-section').forEach(section => {
+                    observer.observe(section);
+                });
+            }
+            
+        } else { // USER IS NOT LOGGED IN
             document.querySelectorAll('.admin-only').forEach(el => el.classList.add('hidden'));
+            
             if (isAdminPath) {
                 loginView.classList.remove('hidden');
                 invitationView.classList.add('hidden');
                 loadingIndicator.classList.add('hidden');
-            } else {
+            } else { // Not admin path, show public invitation
                 loginView.classList.add('hidden');
                 invitationView.classList.remove('hidden');
+                
+                if (!isDataLoaded) {
+                    await fetchInitialData();
+                    isDataLoaded = true;
+                }
             }
         }
         lucide.createIcons();
@@ -498,15 +524,8 @@
             loginError.textContent = 'Email atau password salah.';
             console.error("Login failed:", error);
         } else {
-            window.location.hash = '';
-            // Make main content visible for admin after login
-            landingView.classList.add('hidden');
-            mainContentView.classList.remove('hidden');
-            mainContentView.classList.add('opacity-100');
-            document.body.style.overflow = 'auto';
-            document.querySelectorAll('.animated-section').forEach(section => {
-                observer.observe(section);
-            });
+            // Auth state will change, onAuthStateChange will handle the view
+            window.location.hash = ''; 
         }
     });
 
@@ -541,9 +560,11 @@
             document.body.style.overflow = 'auto';
             playMusic();
             // Start observing sections after they become visible
-            document.querySelectorAll('.animated-section').forEach(section => {
-                observer.observe(section);
-            });
+            if (!isDataLoaded) { // Only observe if data is loaded
+                document.querySelectorAll('.animated-section').forEach(section => {
+                    observer.observe(section);
+                });
+            }
         }, 1000); // Wait for fade-out to complete
     });
 
@@ -855,7 +876,6 @@
         }
     });
 
-
     // --- FILE UPLOAD LOGIC ---
     function openFileUploadModal(type, title, acceptedFiles) {
         currentUploadType = type;
@@ -866,8 +886,9 @@
         document.getElementById('progress-bar').style.width = '0%';
         fileUploadModal.classList.remove('hidden');
     }
+    
     document.getElementById('cancel-file-upload').addEventListener('click', () => fileUploadModal.classList.add('hidden'));
-
+    
     document.getElementById('file-upload-form').addEventListener('submit', async (e) => {
         e.preventDefault();
         const file = document.getElementById('file-input').files[0];
@@ -904,7 +925,9 @@
         }
     });
 
-    document.getElementById('edit-cover-btn').addEventListener('click', () => openFileUploadModal('cover', 'Ganti Foto Cover', 'image/*'));
+    // ADDED: Listener for new floating cover edit button
+    document.getElementById('edit-cover-btn-floating').addEventListener('click', () => openFileUploadModal('cover', 'Ganti Foto Cover', 'image/*'));
+
     document.getElementById('edit-music-btn').addEventListener('click', () => openFileUploadModal('music', 'Ganti Musik Latar', '.mp3,.wav'));
 
     // --- GALLERY EDIT LOGIC ---
@@ -1002,7 +1025,7 @@
         }
     });
 
-    // --- MUSIC & LIGHTBOX & COPY ---
+    // --- MUSIC & LIGHTBOX ---
     const musicBtn = document.getElementById('music-control-btn'), musicIcon = document.getElementById('music-icon'), audio = document.getElementById('background-music');
     
     function toggleMusic() { audio.paused ? playMusic() : pauseMusic(); }
@@ -1015,34 +1038,9 @@
     function closeLightbox() { lightbox.classList.add('hidden'); }
     closeLightboxBtn.addEventListener('click', closeLightbox);
     lightbox.addEventListener('click', (e) => { if (e.target.id === 'lightbox') closeLightbox(); });
-
-    document.addEventListener('click', function(e) {
-        const button = e.target.closest('.copy-btn');
-        if (button) {
-            const accountNumber = button.dataset.account;
-            navigator.clipboard.writeText(accountNumber).then(() => {
-                const textSpan = button.querySelector('span');
-                const originalText = textSpan.textContent;
-                button.disabled = true;
-                textSpan.textContent = 'Tersalin!';
-                setTimeout(() => {
-                    textSpan.textContent = originalText;
-                    button.disabled = false;
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-                alert('Gagal menyalin nomor.');
-            });
-        }
-    });
     
     // --- UTILITIES ---
-    function escapeHTML(str) { 
-      if (!str) return '';
-      const p = document.createElement('p'); 
-      p.appendChild(document.createTextNode(str)); 
-      return p.innerHTML; 
-    }
+    function escapeHTML(str) { const p = document.createElement('p'); p.appendChild(document.createTextNode(str)); return p.innerHTML; }
     function createFlowers() { 
         const container = document.getElementById('flower-container');
         if (!container) return;
@@ -1059,6 +1057,32 @@
             container.appendChild(flower); 
         } 
     }
+    
+    // Event listener for copy buttons (must be delegated)
+    document.addEventListener('click', (e) => {
+        const copyBtn = e.target.closest('.copy-btn');
+        if (copyBtn) {
+            const accountNumber = copyBtn.dataset.account;
+            try {
+                // Use a temporary textarea to copy to clipboard
+                const tempTextarea = document.createElement('textarea');
+                tempTextarea.value = accountNumber;
+                document.body.appendChild(tempTextarea);
+                tempTextarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempTextarea);
+                
+                const btnSpan = copyBtn.querySelector('span');
+                if (btnSpan) btnSpan.textContent = 'Berhasil Disalin!';
+                setTimeout(() => {
+                    if (btnSpan) btnSpan.textContent = 'Salin Rekening';
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+                alert('Gagal menyalin. Silakan salin secara manual.');
+            }
+        }
+    });
 
     // --- ANIMATION OBSERVER ---
     const observer = new IntersectionObserver((entries) => {
@@ -1071,22 +1095,13 @@
 
     // --- INITIALIZE ---
     if (supabaseClient) {
+        // These are static, they can run immediately
         handleGuestName();
-        fetchInitialData();
-        lucide.createIcons();
         createFlowers();
-
-        // If user is already logged in as admin, bypass landing
-        if (currentUser) {
-            landingView.classList.add('hidden');
-            mainContentView.classList.remove('hidden');
-            mainContentView.classList.add('opacity-100');
-            document.body.style.overflow = 'auto';
-        }
+        // The main logic (fetchInitialData) is now inside onAuthStateChange
     }
 </script>
 
 </body>
 </html>
-
 
